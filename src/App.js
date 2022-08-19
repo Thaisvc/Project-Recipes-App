@@ -5,16 +5,16 @@ import Login from './pages/Login';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login }></Route>
-      <Route path="/foods"></Route>
-      <Route path="/drinks"></Route>
-      <Route path="/foods/{id-da-receita}"></Route>
-      <Route path="/drinks/{id-da-receita}"></Route>
-      <Route path="/foods/{id-da-receita}/in-progress"></Route>
-      <Route path="/drinks/{id-da-receita}/in-progress"></Route>
-      <Route path="/profile"></Route>
-      <Route path="/done-recipes"></Route>
-      <Route path="/favorite-recipes"></Route>
+      <Route exact path="/" component={ Login } />
+      <Route path="/foods" />
+      <Route path="/drinks" />
+      <Route path="/foods/{id-da-receita}" />
+      <Route path="/drinks/{id-da-receita}" />
+      <Route path="/foods/{id-da-receita}/in-progress" />
+      <Route path="/drinks/{id-da-receita}/in-progress" />
+      <Route path="/profile" />
+      <Route path="/done-recipes" />
+      <Route path="/favorite-recipes" />
     </Switch>
   );
 }
