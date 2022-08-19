@@ -1,28 +1,39 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ProfileImg from '../images/profileIcon.svg';
 import SearchImg from '../images/searchIcon.svg';
 
 function Header() {
-  const { titlePage } = useContext(RecipesContext);
+  const { titlePage, setDisabledSearch, disabledSearch } = useContext(RecipesContext);
   return (
     <div>
       <h1 data-testid="page-title">{titlePage}</h1>
-      <img
-        src={ ProfileImg }
-        alt="Profile Icon"
-        data-testid="profile-top-btn"
-      />
+      <Link to="/profile">
+        <img
+          src={ ProfileImg }
+          alt="Profile Icon"
+          data-testid="profile-top-btn"
+        />
+      </Link>
       {(titlePage !== 'Profile'
       && titlePage !== 'Done Recipes'
       && titlePage !== 'Favorite Recipes')
         ? (
-          <img
-            src={ SearchImg }
-            alt="Search Icon"
-            data-testid="search-top-btn"
-          />
+          <button
+            style={ { border: 'none', backgroundColor: 'white', cursor: 'pointer' } }
+            type="button"
+            onClick={ () => setDisabledSearch(!disabledSearch) }
+          >
+            <img
+              src={ SearchImg }
+              alt="Search Icon"
+              data-testid="search-top-btn"
+            />
+          </button>
         ) : ''}
+      {disabledSearch
+      && <input type="text" data-testid="search-input" />}
     </div>
   );
 }
