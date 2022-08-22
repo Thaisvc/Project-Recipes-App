@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
+  const [titlePage, setTitlePage] = useState('Foods');
+  const [disabledSearch, setDisabledSearch] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -22,10 +24,14 @@ function RecipesProvider({ children }) {
   const objContext = {
     email,
     password,
-    setEmail,
-    setPassword,
+    disabledSearch,
+    titlePage,
     isDisabled,
+    setPassword,
     setIsDisabled,
+    setEmail,
+    setDisabledSearch,
+    setTitlePage,
   };
   return (
     <RecipesContext.Provider value={ objContext }>
