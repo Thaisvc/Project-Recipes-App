@@ -3,11 +3,12 @@ import RecipesContext from '../context/RecipesContext';
 
 function SearchBar() {
   const { setNameInput, setRadioInput,
-    nameInput, radioInput } = useContext(RecipesContext);
+    nameInput, radioInput, getRevenue } = useContext(RecipesContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(nameInput, radioInput);
+    // console.log(nameInput, radioInput);
+    getRevenue(nameInput, radioInput);
   };
 
   return (
@@ -56,7 +57,6 @@ function SearchBar() {
           <button
             type="submit"
             data-testid="exec-search-btn"
-
           >
             SEARCH
           </button>
