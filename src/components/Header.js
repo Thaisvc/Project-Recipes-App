@@ -33,7 +33,11 @@ function Header() {
           </button>
         ) : ''}
       {disabledSearch
-      && <input type="text" data-testid="search-input" />}
+      && <input
+        placeholder="Search"
+        type="text"
+        data-testid="search-input"
+      />}
     </div>
   );
 }
