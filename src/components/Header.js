@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ProfileImg from '../images/profileIcon.svg';
 import SearchImg from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header() {
   const { titlePage, setDisabledSearch, disabledSearch } = useContext(RecipesContext);
@@ -33,11 +34,7 @@ function Header() {
           </button>
         ) : ''}
       {disabledSearch
-      && <input
-        placeholder="Search"
-        type="text"
-        data-testid="search-input"
-      />}
+      && <SearchBar />}
     </div>
   );
 }
