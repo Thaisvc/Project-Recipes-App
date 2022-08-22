@@ -16,20 +16,20 @@ function RecipesProvider({ children }) {
     if (searchB === 'Ingredient') {
       const fetchIngredient = async () => {
         const { meals } = await fetchApiIngredient(searchA);
-        console.log(meals);
+        // console.log(meals);
       };
       return fetchIngredient();
     } if (searchB === 'Name') {
       const fetchName = async () => {
         const { meals } = await fetchApiName(searchA);
-        console.log(meals);
+        // console.log(meals);
       };
       return fetchName();
     }
     if (searchB === 'First Letter') {
       const fetchFirstLetter = async () => {
         const { meals } = await fetchApiFirstLetter(searchA);
-        console.log(meals);
+        // console.log(meals);
       };
       return fetchFirstLetter();
     }
