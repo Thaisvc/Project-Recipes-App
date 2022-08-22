@@ -9,7 +9,7 @@ function RecipesProvider({ children }) {
   const [disabledSearch, setDisabledSearch] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
-  const [revenue, setRevenue] = useState('');
+  // const [revenue, setRevenue] = useState('');
 
   const getRevenue = (searchA, searchB) => {
     // console.log(searchA, searchB);
