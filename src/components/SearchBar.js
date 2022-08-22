@@ -8,7 +8,11 @@ function SearchBar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(nameInput, radioInput);
-    getRevenue(nameInput, radioInput);
+    if (nameInput.length > 1 && radioInput === 'First Letter') {
+      global.alert('Your search must have only 1 (one) character');
+    } else {
+      getRevenue(nameInput, radioInput);
+    }
   };
 
   return (
