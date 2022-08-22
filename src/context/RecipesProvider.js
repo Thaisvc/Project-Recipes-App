@@ -5,11 +5,15 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
   const [disabledSearch, setDisabledSearch] = useState(false);
+  const [search, setSearch] = useState();
+
   const objContext = {
     disabledSearch,
     titlePage,
+    search,
     setDisabledSearch,
     setTitlePage,
+    setSearch,
   };
   return (
     <RecipesContext.Provider value={ objContext }>
