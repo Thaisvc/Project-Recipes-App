@@ -8,17 +8,18 @@ function RecipesProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-
-  const handlePass = () => {
-    const SIX = 6;
-    if (password.length > SIX && email.includes('@') && email.includes('.com')) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  };
+  const [foodsApi, setFoodsApi] = useState([]);
+  const [drinksApi, setDrinksApi] = useState([]);
 
   useEffect(() => {
+    const handlePass = () => {
+      const SIX = 6;
+      if (password.length > SIX && email.includes('@') && email.includes('.com')) {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    };
     handlePass();
   }, [email, password]);
 
@@ -28,12 +29,15 @@ function RecipesProvider({ children }) {
     disabledSearch,
     titlePage,
     isDisabled,
+    foodsApi,
+    drinksApi,
     setPassword,
     setIsDisabled,
     setEmail,
-    handlePass,
     setDisabledSearch,
     setTitlePage,
+    setFoodsApi,
+    setDrinksApi,
   };
   return (
     <RecipesContext.Provider value={ objContext }>
