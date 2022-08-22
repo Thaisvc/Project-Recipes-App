@@ -9,16 +9,15 @@ function RecipesProvider({ children }) {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const handlePass = () => {
-    const SIX = 6;
-    if (password.length > SIX && email.includes('@') && email.includes('.com')) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  };
-
   useEffect(() => {
+    const handlePass = () => {
+      const SIX = 6;
+      if (password.length > SIX && email.includes('@') && email.includes('.com')) {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    };
     handlePass();
   }, [email, password]);
 
@@ -31,7 +30,6 @@ function RecipesProvider({ children }) {
     setPassword,
     setIsDisabled,
     setEmail,
-    handlePass,
     setDisabledSearch,
     setTitlePage,
   };
