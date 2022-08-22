@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
   const [disabledSearch, setDisabledSearch] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    const handlePass = () => {
+      const SIX = 6;
+      if (password.length > SIX && email.includes('@') && email.includes('.com')) {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    };
+    handlePass();
+  }, [email, password]);
+
   const objContext = {
+    email,
+    password,
     disabledSearch,
     titlePage,
+    isDisabled,
+    setPassword,
+    setIsDisabled,
+    setEmail,
     setDisabledSearch,
     setTitlePage,
   };
