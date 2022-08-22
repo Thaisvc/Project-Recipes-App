@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import RecipesProvider from './context/RecipesProvider';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root'));
-  
+  <RecipesProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </RecipesProvider>,
+  document.getElementById('root'),
+);
