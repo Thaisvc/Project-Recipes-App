@@ -1,12 +1,23 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
 function Login() {
-  const {
+  const { email,
     setEmail, setPassword, isDisabled } = useContext(RecipesContext);
 
+  const history = useHistory();
   const handleClickButton = (event) => {
     event.preventDefault();
+    // const userLogin = localStorage.getItem('user');
+    const objToLocal = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(objToLocal));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    console.log('clicou');
+    history.push('/foods');
   };
 
   return (
