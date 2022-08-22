@@ -21,20 +21,21 @@ function Header() {
       && titlePage !== 'Done Recipes'
       && titlePage !== 'Favorite Recipes')
         ? (
-          <button
-            style={ { border: 'none', backgroundColor: 'white', cursor: 'pointer' } }
-            type="button"
-            onClick={ () => setDisabledSearch(!disabledSearch) }
-          >
-            <img
-              src={ SearchImg }
-              alt="Search Icon"
-              data-testid="search-top-btn"
-            />
-          </button>
+          <div>
+            <button
+              style={ { border: 'none', backgroundColor: 'white', cursor: 'pointer' } }
+              type="button"
+              onClick={ () => setDisabledSearch(!disabledSearch) }
+            >
+              <img
+                src={ SearchImg }
+                alt="Search Icon"
+                data-testid="search-top-btn"
+              />
+            </button>
+            {disabledSearch && <SearchBar />}
+          </div>
         ) : ''}
-      {disabledSearch
-      && <SearchBar />}
     </div>
   );
 }
