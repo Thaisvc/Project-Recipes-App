@@ -2,18 +2,13 @@ import React, { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 
 function SearchBar() {
-  // const [search, setSearch] = useState();
+  const { setNameInput, setRadioInput,
+    nameInput, radioInput } = useContext(RecipesContext);
 
-  function handleChecked({ target }) {
-    const value = target.type === 'radio' ? target.checked : target.value;
-    console.log(value);
-    // setSearch(value);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(search);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(nameInput, radioInput);
+  };
 
   return (
     <div>
@@ -23,33 +18,36 @@ function SearchBar() {
           name="search"
           type="text"
           data-testid="search-input"
-          onChange={ (e) => handleChecked(e) }
+          onChange={ ({ target: { value } }) => setNameInput(value) }
         />
-        <label htmlFor="radioInput">
+        <label
+          htmlFor="radioInput"
+          onChange={ ({ target: { value } }) => setRadioInput(value) }
+        >
           <div>
             <input
               type="radio"
+              value="Ingredient"
               name="radioInput"
               data-testid="ingredient-search-radio"
-              onChange={ (e) => handleChecked(e) }
             />
             Ingredient
           </div>
           <div>
             <input
               type="radio"
+              value="Name"
               name="radioInput"
               data-testid="name-search-radio"
-              onChange={ (e) => handleChecked(e) }
             />
             Name
           </div>
           <div>
             <input
               type="radio"
+              value="First Letter"
               name="radioInput"
               data-testid="first-letter-search-radio"
-              onChange={ (e) => handleChecked(e) }
             />
             First Letter
           </div>
