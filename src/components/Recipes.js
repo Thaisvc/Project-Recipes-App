@@ -11,12 +11,10 @@ function Recipes() {
     const func = async () => {
       if (titlePage === 'Foods') {
         const results = await apiFood();
-        console.log(results);
         setFoodsApi(results);
       }
       if (titlePage === 'Drinks') {
         const resultsDrinks = await apiDrink();
-        console.log(resultsDrinks);
         setDrinksApi(resultsDrinks);
       }
     };
