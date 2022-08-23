@@ -24,35 +24,15 @@ function Recipes() {
     func();
   }, [setFoodsApi, setDrinksApi,
     titlePage, setCategoryFoodsBtn, setApiOfFood, setApiOfDrink]);
-
-  // useEffect(() => {
-  //   const minArray = 12;
-  //   const foodCategory = async () => {
-  //     const resultApiCategory = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryOfFoods}`);
-  //     const data = await resultApiCategory.json();
-  //     setFoodsApi(data.meals.slice(0, minArray));
-  //   };
-  //   if (categoryOfFoods.length !== 0) {
-  //     foodCategory();
-  //   }
-  // }, [categoryOfFoods, setFoodsApi]);
   return (
     <div>
       {
         (titlePage === 'Drinks') ? (
-          <DrinksRecipes />
+          <div>
+            <DrinksRecipes />
+          </div>
         ) : (
           <div>
-            {/* {categoryFoodsBtn.map(({ strCategory }, index) => (
-              <button
-                type="button"
-                key={ index }
-                data-testid={ `${strCategory}-category-filter` }
-                onClick={ () => setCategoryOfFoods(strCategory) }
-              >
-                {strCategory}
-              </button>
-            ))} */}
             <FoodsRecipes />
           </div>
         )

@@ -4,7 +4,7 @@ function SearchBar() {
   return (
     <div>
       <h3>Search Bar</h3>
-      <input type="text" data-testid="search-input" />
+      <input type="text" data-testid="search-input" placeholder="Search" />
       <label htmlFor="radioInput">
         <div>
           <input
