@@ -9,8 +9,7 @@ function RecipesProvider({ children }) {
   const [disabledSearch, setDisabledSearch] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
-  /* const [searchName, setSearchName] = useState('');
-  const [searchCateg, setSearchCateg] = useState(''); */
+  const [searchFoodDrink, setSearchFoodDrink] = useState('');
   const history = useHistory();
 
   const getRevenue = (searchA, searchB) => {
@@ -27,13 +26,15 @@ function RecipesProvider({ children }) {
     titlePage,
     nameInput,
     radioInput,
+    searchFoodDrink,
     setDisabledSearch,
     setTitlePage,
     setNameInput,
     setRadioInput,
     getRevenue,
-
+    setSearchFoodDrink,
   };
+
   return (
     <RecipesContext.Provider value={ objContext }>
       {children}

@@ -1,12 +1,17 @@
-// import { useContext } from 'react';
+import { useContext } from 'react';
+import RecipesContext from './context/RecipesContext';
+
 import { fetchApiIngredientFood, fetchApiNameFood,
   fetchApiFirstLetterFood } from './serviceSearch/getApiFood';
 import { fetchApiIngredientDrink, fetchApiNameDrink,
   fetchApiFirstLetterDrink } from './serviceSearch/getApiDrinks';
 
 export const Foods = async (searchA, searchB) => {
+  const { setSearchFoodDrink } = useContext(RecipesContext);
+
   if (searchB === 'Ingredient') {
     const results = await fetchApiIngredientFood(searchA);
+    setSearchFoodDrink(results);
     return results;
   } if (searchB === 'Name') {
     const results = await fetchApiNameFood(searchA);
