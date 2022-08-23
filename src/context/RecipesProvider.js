@@ -9,9 +9,11 @@ function RecipesProvider({ children }) {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [foodsApi, setFoodsApi] = useState([]);
-  const [categoryOfFoods, setCategoryOfFoods] = useState('');
-  const [categoryFoodsBtn, setCategoryFoodsBtn] = useState([]);
   const [drinksApi, setDrinksApi] = useState([]);
+  const [categoryOfFoods, setCategoryOfFoods] = useState('');
+  const [categoryOfDrinks, setCategoryOfDrinks] = useState('');
+  const [categoryFoodsBtn, setCategoryFoodsBtn] = useState([]);
+  const [categoryDrinks, setCategoryDrinks] = useState([]);
 
   useEffect(() => {
     const handlePass = () => {
@@ -34,6 +36,9 @@ function RecipesProvider({ children }) {
     drinksApi,
     categoryFoodsBtn,
     categoryOfFoods,
+    categoryDrinks,
+    categoryOfDrinks,
+    setCategoryOfDrinks,
     setCategoryOfFoods,
     setCategoryFoodsBtn,
     setPassword,
@@ -43,6 +48,7 @@ function RecipesProvider({ children }) {
     setTitlePage,
     setFoodsApi,
     setDrinksApi,
+    setCategoryDrinks,
   };
   return (
     <RecipesContext.Provider value={ objContext }>
