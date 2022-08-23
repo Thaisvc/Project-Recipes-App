@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import { Foods, Drinks } from '../teste';
+import { Foods, Drinks } from '../SearchFoodDrink';
 
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
