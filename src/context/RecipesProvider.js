@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import { fetchApiIngredient, fetchApiName,
-  fetchApiFirstLetter } from '../serviceSearch/getApiFood';
+import { fetchApiIngredientFood, fetchApiNameFood,
+  fetchApiFirstLetterFood } from '../serviceSearch/getApiFood';
 import { fetchApiIngredientDrink, fetchApiNameDrink,
   fetchApiFirstLetterDrink } from '../serviceSearch/getApiDrinks';
 
@@ -21,24 +21,24 @@ function RecipesProvider({ children }) {
 
     if (pathname === '/foods') {
       if (searchB === 'Ingredient') {
-        const fetchIngredient = async () => {
-          const { meals } = await fetchApiIngredient(searchA);
+        const fetchIngredientFood = async () => {
+          const { meals } = await fetchApiIngredientFood(searchA);
           // console.log(meals);
         };
-        return fetchIngredient();
+        return fetchIngredientFood();
       } if (searchB === 'Name') {
-        const fetchName = async () => {
-          const { meals } = await fetchApiName(searchA);
+        const fetchNameFood = async () => {
+          const { meals } = await fetchApiNameFood(searchA);
           // console.log(meals);
         };
-        return fetchName();
+        return fetchNameFood();
       }
       if (searchB === 'First Letter') {
-        const fetchFirstLetter = async () => {
-          const { meals } = await fetchApiFirstLetter(searchA);
+        const fetchFirstLetterFood = async () => {
+          const { meals } = await fetchApiFirstLetterFood(searchA);
           // console.log(meals);
         };
-        return fetchFirstLetter();
+        return fetchFirstLetterFood();
       }
     } else if (pathname === '/drinks') {
       if (searchB === 'Ingredient') {

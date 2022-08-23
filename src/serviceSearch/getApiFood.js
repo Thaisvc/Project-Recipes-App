@@ -1,4 +1,4 @@
-export const fetchApiIngredient = async (ingredient) => {
+export const fetchApiIngredientFood = async (ingredient) => {
   try {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
@@ -9,7 +9,7 @@ export const fetchApiIngredient = async (ingredient) => {
   }
 };
 
-export const fetchApiName = async (name) => {
+export const fetchApiNameFood = async (name) => {
   try {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
     const data = await response.json();
@@ -20,7 +20,7 @@ export const fetchApiName = async (name) => {
   }
 };
 
-export const fetchApiFirstLetter = async (firstLetter) => {
+export const fetchApiFirstLetterFood = async (firstLetter) => {
   try {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`);
     const data = await response.json();
