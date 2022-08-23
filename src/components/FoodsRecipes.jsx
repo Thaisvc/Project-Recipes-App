@@ -4,6 +4,7 @@ import categoryFoodApi from '../fetchApi/categoryFood';
 
 function FoodsRecipes() {
   const { foodsApi, categoryOfFoods,
+    apiOfFood,
     setCategoryOfFoods, categoryFoodsBtn,
     setCategoryFoodsBtn, setFoodsApi } = useContext(RecipesContext);
   const minArray = 12;
@@ -28,6 +29,13 @@ function FoodsRecipes() {
   }, [categoryOfFoods, setFoodsApi]);
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setFoodsApi(apiOfFood) }
+      >
+        All
+      </button>
       {categoryFoodsBtn.map(({ strCategory }, index) => (
         <button
           type="button"

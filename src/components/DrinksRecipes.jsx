@@ -4,7 +4,7 @@ import categoryDrinksApi from '../fetchApi/categoryDrinksApi';
 
 function DrinksRecipes() {
   const { drinksApi, setDrinksApi,
-    categoryDrinks,
+    categoryDrinks, apiOfDrink,
     setCategoryDrinks,
     setCategoryOfDrinks,
     categoryOfDrinks } = useContext(RecipesContext);
@@ -35,6 +35,13 @@ function DrinksRecipes() {
 
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setDrinksApi(apiOfDrink) }
+      >
+        All
+      </button>
       {categoryDrinks.map((c) => (
         <button
           data-testid={ `${c}-category-filter` }

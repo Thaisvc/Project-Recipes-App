@@ -10,6 +10,8 @@ function RecipesProvider({ children }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [foodsApi, setFoodsApi] = useState([]);
   const [drinksApi, setDrinksApi] = useState([]);
+  const [apiOfFood, setApiOfFood] = useState([]);
+  const [apiOfDrink, setApiOfDrink] = useState([]);
   const [categoryOfFoods, setCategoryOfFoods] = useState('');
   const [categoryOfDrinks, setCategoryOfDrinks] = useState('');
   const [categoryFoodsBtn, setCategoryFoodsBtn] = useState([]);
@@ -38,6 +40,10 @@ function RecipesProvider({ children }) {
     categoryOfFoods,
     categoryDrinks,
     categoryOfDrinks,
+    apiOfFood,
+    apiOfDrink,
+    setApiOfDrink,
+    setApiOfFood,
     setCategoryOfDrinks,
     setCategoryOfFoods,
     setCategoryFoodsBtn,

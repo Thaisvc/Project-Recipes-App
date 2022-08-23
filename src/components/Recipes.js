@@ -7,20 +7,23 @@ import FoodsRecipes from './FoodsRecipes';
 
 function Recipes() {
   const { titlePage, setFoodsApi, setDrinksApi,
-    setCategoryFoodsBtn } = useContext(RecipesContext);
+    setCategoryFoodsBtn, setApiOfFood, setApiOfDrink } = useContext(RecipesContext);
   useEffect(() => {
     const func = async () => {
       if (titlePage === 'Foods') {
         const results = await apiFood();
         setFoodsApi(results);
+        setApiOfFood(results);
       }
       if (titlePage === 'Drinks') {
         const resultsDrinks = await apiDrink();
         setDrinksApi(resultsDrinks);
+        setApiOfDrink(resultsDrinks);
       }
     };
     func();
-  }, [setFoodsApi, setDrinksApi, titlePage, setCategoryFoodsBtn]);
+  }, [setFoodsApi, setDrinksApi,
+    titlePage, setCategoryFoodsBtn, setApiOfFood, setApiOfDrink]);
 
   // useEffect(() => {
   //   const minArray = 12;
