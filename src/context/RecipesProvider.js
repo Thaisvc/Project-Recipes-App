@@ -9,15 +9,17 @@ function RecipesProvider({ children }) {
   const [disabledSearch, setDisabledSearch] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
-  const [searchFoodDrink, setSearchFoodDrink] = useState('');
+  const [searchFoodDrink, setSearchFoodDrink] = useState([]);
   const history = useHistory();
 
-  const getRevenue = (searchA, searchB) => {
+  const getRevenue = async (searchA, searchB) => {
     const { pathname } = history.location;
     if (pathname === '/foods') {
-      Foods(searchA, searchB);
+      const foodsApiSearch = await Foods(searchA, searchB);
+      setSearchFoodDrink(foodsApiSearch);
     } else if (pathname === '/drinks') {
-      Drinks(searchA, searchB);
+      const drinksApiSearch = await Drinks(searchA, searchB);
+      setSearchFoodDrink(drinksApiSearch);
     }
   };
 
