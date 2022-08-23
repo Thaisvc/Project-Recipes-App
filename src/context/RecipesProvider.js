@@ -9,6 +9,8 @@ function RecipesProvider({ children }) {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [foodsApi, setFoodsApi] = useState([]);
+  const [categoryOfFoods, setCategoryOfFoods] = useState('');
+  const [categoryFoodsBtn, setCategoryFoodsBtn] = useState([]);
   const [drinksApi, setDrinksApi] = useState([]);
 
   useEffect(() => {
@@ -23,14 +25,17 @@ function RecipesProvider({ children }) {
     handlePass();
   }, [email, password]);
 
-  const objContext = {
-    email,
+  const objContext = { email,
     password,
     disabledSearch,
     titlePage,
     isDisabled,
     foodsApi,
     drinksApi,
+    categoryFoodsBtn,
+    categoryOfFoods,
+    setCategoryOfFoods,
+    setCategoryFoodsBtn,
     setPassword,
     setIsDisabled,
     setEmail,
