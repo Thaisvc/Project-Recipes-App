@@ -50,7 +50,7 @@ function DrinksRecipes() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => setDrinksApi(apiOfDrink) }
+        onClick={ () => { setDrinksApi(apiOfDrink); setClickOne(true); } }
       >
         All
       </button>

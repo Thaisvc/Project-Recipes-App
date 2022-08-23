@@ -46,7 +46,7 @@ function FoodsRecipes() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => setFoodsApi(apiOfFood) }
+        onClick={ () => { setFoodsApi(apiOfFood); setClickOne(true); } }
       >
         All
       </button>
