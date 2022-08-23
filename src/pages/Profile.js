@@ -4,16 +4,23 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 
 function Profile() {
-  const [email, setEmail] = useState('');
-  const emailStorage = () => {
-    const getEmail = JSON.parse(localStorage.getItem('user'));
-    setEmail(getEmail.email);
-  };
   const { setTitlePage } = useContext(RecipesContext);
+  const [email, setEmail] = useState('');
+  // função emailStorage que pega o user armazenado e insere no estado do profile (req58).
+  const emailStorage = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setEmail(user.email);
+  };
+  // função que limpa todas as chaves do localStorage (req62)
+  const clearStorage = () => {
+    localStorage.clear();
+  };
+
   useEffect(() => {
     emailStorage();
     setTitlePage('Profile');
   }, [setTitlePage]);
+
   return (
     <div>
       <Header />
@@ -24,7 +31,15 @@ function Profile() {
       <Link to="/favorite-recipes">
         <button type="button" data-testid="profile-favorite-btn">Favorite Recipes</button>
       </Link>
-      <button type="button" data-testid="profile-logout-btn">Logout</button>
+      <Link to="/">
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ clearStorage }
+        >
+          Logout
+        </button>
+      </Link>
     </div>
   );
 }
