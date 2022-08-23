@@ -21,7 +21,7 @@ describe('Tela de Login', () => {
   expect(buttonEnter).toBeDisabled();
 });
   it('Testa o comportamento da tela de Login', () => {
-  renderWithRouter(
+  const { history } = renderWithRouter(
     <RecipesProvider>
       <App />
     </RecipesProvider>
@@ -32,6 +32,8 @@ describe('Tela de Login', () => {
   userEvent.type(emailInput, 'alguem@email.com');
   userEvent.type(passwordInput, '1234567');
   expect(buttonEnter).not.toBeDisabled();
+  userEvent.click(buttonEnter);
+  expect(history.location.pathname).toBe('/foods');
 });
 });
 
