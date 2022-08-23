@@ -5,9 +5,10 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
   const [disabledSearch, setDisabledSearch] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isClickOne, setClickOne] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isDisabled, setIsDisabled] = useState(true);
   const [foodsApi, setFoodsApi] = useState([]);
   const [drinksApi, setDrinksApi] = useState([]);
   const [apiOfFood, setApiOfFood] = useState([]);
@@ -42,6 +43,8 @@ function RecipesProvider({ children }) {
     categoryOfDrinks,
     apiOfFood,
     apiOfDrink,
+    isClickOne,
+    setClickOne,
     setApiOfDrink,
     setApiOfFood,
     setCategoryOfDrinks,

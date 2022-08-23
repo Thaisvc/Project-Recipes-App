@@ -7,6 +7,8 @@ function DrinksRecipes() {
     categoryDrinks, apiOfDrink,
     setCategoryDrinks,
     setCategoryOfDrinks,
+    isClickOne,
+    setClickOne,
     categoryOfDrinks } = useContext(RecipesContext);
   const minArray = 12;
 
@@ -22,7 +24,6 @@ function DrinksRecipes() {
   }, [setCategoryDrinks]);
 
   useEffect(() => {
-    // console.log(categoryOfDrinks);
     const drinksCategory = async () => {
       const resultApiCategory = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryOfDrinks}`);
       const data = await resultApiCategory.json();
@@ -32,6 +33,17 @@ function DrinksRecipes() {
       drinksCategory();
     }
   }, [categoryOfDrinks, setDrinksApi]);
+
+  const handleClick = (c) => {
+    console.log('ok');
+    setClickOne(!isClickOne);
+    if (isClickOne) {
+      setCategoryOfDrinks(c);
+    }
+    if (isClickOne === false) {
+      setDrinksApi(apiOfDrink);
+    }
+  };
 
   return (
     <div>
@@ -47,7 +59,7 @@ function DrinksRecipes() {
           data-testid={ `${c}-category-filter` }
           key={ c }
           type="button"
-          onClick={ () => setCategoryOfDrinks(c) }
+          onClick={ () => handleClick(c) }
         >
           { c }
 

@@ -5,6 +5,8 @@ import categoryFoodApi from '../fetchApi/categoryFood';
 function FoodsRecipes() {
   const { foodsApi, categoryOfFoods,
     apiOfFood,
+    isClickOne,
+    setClickOne,
     setCategoryOfFoods, categoryFoodsBtn,
     setCategoryFoodsBtn, setFoodsApi } = useContext(RecipesContext);
   const minArray = 12;
@@ -27,6 +29,18 @@ function FoodsRecipes() {
       foodCategory();
     }
   }, [categoryOfFoods, setFoodsApi]);
+
+  const handleClick = (c) => {
+    console.log('ok');
+    setClickOne(!isClickOne);
+    if (isClickOne) {
+      setCategoryOfFoods(c);
+    }
+    if (isClickOne === false) {
+      setFoodsApi(apiOfFood);
+    }
+  };
+
   return (
     <div>
       <button
@@ -41,7 +55,7 @@ function FoodsRecipes() {
           type="button"
           key={ index }
           data-testid={ `${strCategory}-category-filter` }
-          onClick={ () => setCategoryOfFoods(strCategory) }
+          onClick={ () => handleClick(strCategory) }
         >
           {strCategory}
         </button>
