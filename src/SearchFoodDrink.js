@@ -4,48 +4,34 @@ import { fetchApiIngredientFood, fetchApiNameFood,
 import { fetchApiIngredientDrink, fetchApiNameDrink,
   fetchApiFirstLetterDrink } from './serviceSearch/getApiDrinks';
 
-export const Foods = (searchA, searchB) => {
+export const Foods = async (searchA, searchB) => {
   if (searchB === 'Ingredient') {
-    const fetchIngredientFood = async () => {
-      const results = await fetchApiIngredientFood(searchA);
-      // console.log(results);
-    };
-    fetchIngredientFood();
+    const results = await fetchApiIngredientFood(searchA);
+    return results;
   } if (searchB === 'Name') {
-    const fetchNameFood = async () => {
-      const results = await fetchApiNameFood(searchA);
-      console.log(results);
-    };
-    fetchNameFood();
+    const results = await fetchApiNameFood(searchA);
+    return results;
   }
   if (searchB === 'First Letter') {
-    const fetchFirstLetterFood = async () => {
-      const results = await fetchApiFirstLetterFood(searchA);
-      console.log(results);
-    };
-    fetchFirstLetterFood();
+    const results = await fetchApiFirstLetterFood(searchA);
+    return results;
   }
+  return Foods;
 };
 
-export const Drinks = (searchA, searchB) => {
+export const Drinks = async (searchA, searchB) => {
   if (searchB === 'Ingredient') {
-    const fetchIngredientDrink = async () => {
-      const results = await fetchApiIngredientDrink(searchA);
-      console.log(results);
-    };
-    fetchIngredientDrink();
-  } if (searchB === 'Name') {
-    const fetchNameDrink = async () => {
-      const results = await fetchApiNameDrink(searchA);
-      console.log(results);
-    };
-    fetchNameDrink();
+    const results = await fetchApiIngredientDrink(searchA);
+    return results;
   }
+  if (searchB === 'Name') {
+    const results = await fetchApiNameDrink(searchA);
+    return results;
+  }
+
   if (searchB === 'First Letter') {
-    const fetchFirstLetterDrink = async () => {
-      const results = await fetchApiFirstLetterDrink(searchA);
-      console.log(results);
-    };
-    fetchFirstLetterDrink();
+    const results = await fetchApiFirstLetterDrink(searchA);
+    return results;
   }
+  console.log(Drinks);
 };
