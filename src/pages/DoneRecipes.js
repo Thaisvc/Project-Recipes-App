@@ -1,7 +1,10 @@
+// import { copy } from 'fs-extra';
 import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
+
+// const copy = require('clipboard-copy');
 
 function DoneRecipes() {
   const { setTitlePage } = useContext(RecipesContext);
@@ -33,6 +36,12 @@ function DoneRecipes() {
       tags: [],
     },
   ];
+
+  const handleClick = (id) => {
+    console.info('Link copied!', id);
+    // copy(`/drinks/${id}`);
+  };
+
   return (
     <div>
       <Header />
@@ -47,10 +56,18 @@ function DoneRecipes() {
               alt={ recipe.name }
               data-testid={ `${index}-horizontal-image` }
             />
-            <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {recipe.type === 'drink' ? recipe.alcoholicOrNot : recipe.nationality}
+              {' - '}
+              {recipe.category}
+            </p>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
             <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            <button type="button">
+            <button
+              type="button"
+              data-testid="btn-share-img"
+              onClick={ () => handleClick(recipe.id) }
+            >
               <img
                 src={ ShareIcon }
                 alt="Share Icon"
