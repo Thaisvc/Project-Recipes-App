@@ -17,6 +17,7 @@ function RecipesProvider({ children }) {
   const [categoryOfDrinks, setCategoryOfDrinks] = useState('');
   const [categoryFoodsBtn, setCategoryFoodsBtn] = useState([]);
   const [categoryDrinks, setCategoryDrinks] = useState([]);
+  const [recipeDetail, setRecipeDetail] = useState([]);
 
   useEffect(() => {
     const handlePass = () => {
@@ -58,6 +59,8 @@ function RecipesProvider({ children }) {
     setFoodsApi,
     setDrinksApi,
     setCategoryDrinks,
+    setRecipeDetail,
+    recipeDetail,
   };
   return (
     <RecipesContext.Provider value={ objContext }>
