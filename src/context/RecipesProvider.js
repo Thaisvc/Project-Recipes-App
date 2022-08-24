@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
+import { Foods, Drinks } from '../serviceSearch/SearchFoodDrink';
 
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
@@ -19,6 +21,10 @@ function RecipesProvider({ children }) {
   const [disabledSearch, setDisabledSearch] = useState(false);
   const [isClickOne, setClickOne] = useState(true);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [nameInput, setNameInput] = useState('');
+  const [radioInput, setRadioInput] = useState('');
+  const [searchFoodDrink, setSearchFoodDrink] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     const handlePass = () => {
@@ -31,6 +37,23 @@ function RecipesProvider({ children }) {
     };
     handlePass();
   }, [email, password]);
+
+  const getRevenue = async (searchA, searchB) => {
+    const { pathname } = history.location;
+    if (pathname === '/foods') {
+      const foodsApiSearch = await Foods(searchA, searchB);
+      setSearchFoodDrink(foodsApiSearch);
+      if (foodsApiSearch.length === 1) {
+        history.push(`/foods/${foodsApiSearch[0].idMeal}`);
+      } else { history.push('receitas/foods'); }
+    } else if (pathname === '/drinks') {
+      const drinksApiSearch = await Drinks(searchA, searchB);
+      setSearchFoodDrink(drinksApiSearch);
+      if (drinksApiSearch.length === 1) {
+        history.push(`/drinks/${drinksApiSearch[0].idDrink}`);
+      } else { history.push('receitas/drinks'); }
+    }
+  };
 
   const objContext = {
     apiOfFood,
@@ -47,8 +70,11 @@ function RecipesProvider({ children }) {
     isDisabled,
     isClickOne,
     mapDoneRecipe,
+    nameInput,
     password,
     titlePage,
+    radioInput,
+    searchFoodDrink,
     setApiOfDrink,
     setApiOfFood,
     setClickOne,
@@ -65,7 +91,12 @@ function RecipesProvider({ children }) {
     setMapDoneRecipe,
     setPassword,
     setTitlePage,
+    setNameInput,
+    setRadioInput,
+    getRevenue,
+    setSearchFoodDrink,
   };
+
   return (
     <RecipesContext.Provider value={ objContext }>
       {children}
