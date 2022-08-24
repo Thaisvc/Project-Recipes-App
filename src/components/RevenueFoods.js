@@ -24,7 +24,6 @@ function RevenueFoods() {
       {history.location.pathname === '/receitas/drinks'
       && searchFoodDrink.length > 0 && searchFoodDrink.slice(0, TWELVE).map(
         (drink, index) => (
-
           <RevenueCard
             key={ drink.idDrink }
             index={ index }
