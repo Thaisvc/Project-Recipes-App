@@ -9,7 +9,7 @@ function RecipesProvider({ children }) {
   const [disabledSearch, setDisabledSearch] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
-  const [searchFoodDrink, setSearchFoodDrink] = useState([]);
+  const [searchFoodDrink, setSearchFoodDrink] = useState();
   const history = useHistory();
 
   const getRevenue = async (searchA, searchB) => {
@@ -17,9 +17,11 @@ function RecipesProvider({ children }) {
     if (pathname === '/foods') {
       const foodsApiSearch = await Foods(searchA, searchB);
       setSearchFoodDrink(foodsApiSearch);
+      history.push('receitas');
     } else if (pathname === '/drinks') {
       const drinksApiSearch = await Drinks(searchA, searchB);
       setSearchFoodDrink(drinksApiSearch);
+      history.push('receitas');
     }
   };
 
