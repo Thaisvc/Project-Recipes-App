@@ -17,9 +17,10 @@ function App() {
       <Route exact path="/drinks" component={ Drinks } />
       <Route path="/foods/{id-da-receita}" />
       <Route path="/drinks/{id-da-receita}" />
-      <Route exact path="/receitas" component={ RevenueFoods } />
+      <Route exact path="/receitas/foods" component={ RevenueFoods } />
+      <Route exact path="/receitas/drinks" component={ RevenueFoods } />
       <Route path="/foods/:id" render={ (props) => (<FoodDetails { ...props } />) } />
-      <Route path="/drinks/{id-da-receita}/in-progress" />
+      <Route path="/drinks/:id" render={ (props) => (<FoodDetails { ...props } />) } />
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ Favorites } />

@@ -17,11 +17,16 @@ function RecipesProvider({ children }) {
     if (pathname === '/foods') {
       const foodsApiSearch = await Foods(searchA, searchB);
       setSearchFoodDrink(foodsApiSearch);
-      history.push('receitas');
+      if (foodsApiSearch.length === 1) {
+        history.push(`/foods/${foodsApiSearch[0].idMeal}`);
+      } else { history.push('receitas/foods'); }
     } else if (pathname === '/drinks') {
       const drinksApiSearch = await Drinks(searchA, searchB);
       setSearchFoodDrink(drinksApiSearch);
-      history.push('receitas');
+      if (drinksApiSearch.length === 1) {
+        console.log(drinksApiSearch);
+        history.push(`/drinks/${drinksApiSearch[0].idDrink}`);
+      } else { history.push('receitas/drinks'); }
     }
   };
 
