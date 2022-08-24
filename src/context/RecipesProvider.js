@@ -24,7 +24,6 @@ function RecipesProvider({ children }) {
       const drinksApiSearch = await Drinks(searchA, searchB);
       setSearchFoodDrink(drinksApiSearch);
       if (drinksApiSearch.length === 1) {
-        console.log(drinksApiSearch);
         history.push(`/drinks/${drinksApiSearch[0].idDrink}`);
       } else { history.push('receitas/drinks'); }
     }

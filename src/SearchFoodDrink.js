@@ -6,7 +6,6 @@ import { fetchApiIngredientDrink, fetchApiNameDrink,
 export const Foods = async (searchA, searchB) => {
   if (searchB === 'Ingredient') {
     const results = await fetchApiIngredientFood(searchA);
-    // console.log(results);
     return results;
   } if (searchB === 'Name') {
     const results = await fetchApiNameFood(searchA);
@@ -34,5 +33,4 @@ export const Drinks = async (searchA, searchB) => {
     const results = await fetchApiFirstLetterDrink(searchA);
     return results;
   }
-  console.log(Drinks);
 };

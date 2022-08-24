@@ -5,7 +5,6 @@ import RevenueCard from './RevenueCard';
 
 function RevenueFoods() {
   const { searchFoodDrink } = useContext(RecipesContext);
-  console.log(searchFoodDrink);
   const history = useHistory();
   const TWELVE = 12;
   return (
