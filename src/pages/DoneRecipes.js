@@ -1,72 +1,95 @@
 // import { copy } from 'fs-extra';
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
+import referenceData from './mockDone';
 
 // const copy = require('clipboard-copy');
 
 function DoneRecipes() {
-  const { setTitlePage } = useContext(RecipesContext);
+  const { setTitlePage, filterDoneRecipes,
+    setFilterDoneRecipes, mapDoneRecipe, setMapDoneRecipe } = useContext(RecipesContext);
   useEffect(() => {
     setTitlePage('Done Recipes');
   }, [setTitlePage]);
 
-  const referenceData = [
-    {
-      id: '52771',
-      type: 'food',
-      nationality: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'drink',
-      nationality: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
-      tags: [],
-    },
-  ];
-
-  const handleClick = (id) => {
-    console.info('Link copied!', id);
-    // copy(`/drinks/${id}`);
+  // Requisito 47 - Dificil hein Leke
+  const handleClick = (id, type) => {
+    global.alert('Link copied!', id, type);
+    // if (type === 'food') {
+    //   copy(`/foods/${id}`);
+    // }
+    // if (type === 'drink') {
+    //   copy(`/drinks/${id}`);
+    // }
   };
+
+  // Requisito 48 - Filter Done Recipes
+  useEffect(() => {
+    setMapDoneRecipe(referenceData);
+  }, [setMapDoneRecipe]);
+  useEffect(() => {
+    if (filterDoneRecipes === 'Food') {
+      setMapDoneRecipe(referenceData.filter((item) => item.type
+      === 'food'));
+    }
+    if (filterDoneRecipes === 'Drinks') {
+      setMapDoneRecipe(referenceData.filter((item) => item.type
+      === 'drink'));
+    }
+  }, [filterDoneRecipes, setMapDoneRecipe]);
 
   return (
     <div>
       <Header />
       <div>
-        <button data-testid="filter-by-all-btn" type="button">All</button>
-        <button data-testid="filter-by-food-btn" type="button">Food</button>
-        <button data-testid="filter-by-drink-btn" type="button">Drinks</button>
-        {referenceData.map((recipe, index) => (
-          <p key={ recipe.id }>
-            <img
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
+        <button
+          data-testid="filter-by-all-btn"
+          type="button"
+          value="All"
+          onClick={ () => setMapDoneRecipe(referenceData) }
+        >
+          All
+        </button>
+        <button
+          data-testid="filter-by-food-btn"
+          type="button"
+          value="Food"
+          onClick={ ({ target: { value } }) => setFilterDoneRecipes(value) }
+        >
+          Food
+        </button>
+        <button
+          data-testid="filter-by-drink-btn"
+          type="button"
+          value="Drinks"
+          onClick={ ({ target: { value } }) => setFilterDoneRecipes(value) }
+        >
+          Drinks
+        </button>
+        {mapDoneRecipe.map((recipe, index) => (
+          <div key={ recipe.id }>
+            <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
+              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+              <img
+                src={ recipe.image }
+                alt={ recipe.name }
+                width="150px"
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </Link>
             <p data-testid={ `${index}-horizontal-top-text` }>
               {recipe.type === 'drink' ? recipe.alcoholicOrNot : recipe.nationality}
               {' - '}
               {recipe.category}
             </p>
-            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
             <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
             <button
               type="button"
               data-testid="btn-share-img"
-              onClick={ () => handleClick(recipe.id) }
+              onClick={ () => handleClick(recipe.id, recipe.type) }
             >
               <img
                 src={ ShareIcon }
@@ -79,7 +102,7 @@ function DoneRecipes() {
                 {item}
               </p>
             ))}
-          </p>
+          </div>
         ))}
       </div>
     </div>
