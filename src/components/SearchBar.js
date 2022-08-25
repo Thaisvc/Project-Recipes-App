@@ -19,7 +19,7 @@ function SearchBar() {
       <h3>Search Bar</h3>
       <form onSubmit={ handleSubmit }>
         <input
-          name="search"
+          placeholder="Search"
           type="text"
           data-testid="search-input"
           onChange={ ({ target: { value } }) => setNameInput(value) }
