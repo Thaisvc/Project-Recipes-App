@@ -8,21 +8,18 @@ export const Foods = async (searchA, searchB) => {
   if (searchB === 'Ingredient') {
     const results = await fetchApiIngredientFood(searchA);
     if (results === null) {
-      console.log(results);
       return erro;
     }
     return results;
   } if (searchB === 'Name') {
     const results = await fetchApiNameFood(searchA);
     if (results === null) {
-      console.log(results);
       return erro;
     }
     return results;
   }
   if (searchB === 'First Letter') {
     const results = await fetchApiFirstLetterFood(searchA);
-    console.log(results);
     if (results === null) {
       return erro;
     }
