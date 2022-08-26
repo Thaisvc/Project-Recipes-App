@@ -3,6 +3,7 @@ import { useLocation, useParams, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import apiFood from '../fetchApi/apiFood';
 import apiDrink from '../fetchApi/apiDrink';
+import './RecipeDetails.css';
 
 function RecipeDetails() {
   const history = useHistory();
@@ -74,6 +75,8 @@ function RecipeDetails() {
     return numberToEmber[0];
   };
 
+  console.log(recipeDetail);
+
   return (
     <div>
       <h1>RecipeDetails</h1>
@@ -86,7 +89,7 @@ function RecipeDetails() {
             width="400px"
           />
           <p data-testid="recipe-title">{ recipe.strDrink }</p>
-          <p data-testid="recipe-category">{ recipe.strCategory }</p>
+          <p data-testid="recipe-category">{ recipe.strAlcoholic }</p>
           { ingredientsFilter[0].filter((ingredient) => ingredient !== null
           && ingredient.length !== 0)
             .map((ingredient, index) => (
@@ -139,36 +142,44 @@ function RecipeDetails() {
           ))}
         </div>
       )}
-      { pathname.includes('foods') ? (drinksApi.slice(0, SIX).map((d, index) => (
-        <div key={ index } data-testid={ `${index}-recomendation-card` }>
-          <p>{ d.strDrink }</p>
-          <p>{ d.strAlcoholic }</p>
-          <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
+      <div className="testimonials">
+        <div className="scroller">
+          { pathname.includes('foods') ? (drinksApi.slice(0, SIX).map((d, index) => (
+            <div
+              className="item"
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <p data-testid={ `${index}-recomendation-title` }>{ d.strDrink }</p>
+              <p>{ d.strAlcoholic }</p>
+              <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
+            </div>
+          ))) : null }
         </div>
-      ))) : null }
-      { pathname.includes('drinks') ? (foodsApi.slice(0, SIX).map((d, index) => (
-        <div key={ index } data-testid={ `${index}-recomendation-card` }>
-          <p>{ d.strMeal }</p>
-          <p>{ d.strCategory }</p>
-          <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
-        </div>
-      ))) : null }
-
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="start_recipe"
-        onClick={ handlerprogres }
-      >
-        Start Recipe
-
-      </button>
+      </div>
+      <div className="testimonials">
+        <div className="scroller">
+          { pathname.includes('drinks') ? (foodsApi.slice(0, SIX).map((d, index) => (
+            <div
+              className="item"
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <p data-testid={ `${index}-recomendation-title` }>{ d.strMeal }</p>
+              <p>{ d.strCategory }</p>
+              <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
+            </div>
+          ))) : null }
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="start_recipe"
+          onClick={ handlerprogres }
+        >
+          Start Recipe
+        </button>
     </div>
   );
 }
 
 export default RecipeDetails;
-
-// idMeal
-// strMeal
-// strMealThumb

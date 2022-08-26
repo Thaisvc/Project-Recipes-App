@@ -23,12 +23,12 @@ function Header() {
         ? (
           <div>
             <button
-              data-testid="search-top-btn"
               style={ { border: 'none', backgroundColor: 'white', cursor: 'pointer' } }
               type="button"
               onClick={ () => setDisabledSearch(!disabledSearch) }
             >
               <img
+                data-testid="search-top-btn"
                 aria-label="Search Icon"
                 src={ SearchImg }
                 alt="Search Icon"
