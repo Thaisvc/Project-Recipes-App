@@ -16,8 +16,14 @@ describe('Componente Header', () => {
         });
         const btnShare = screen.getAllByTestId('btn-share-img');
         expect(btnShare).toHaveLength(2);
-        userEvent.click(btnShare[0]);
-
+        // userEvent.keyboard('[Ctrl+c>]', '/') // Press Shift (without releasing it)
+        // history.push('/done-recipes');
+        await waitFor(() => {
+          userEvent.click(btnShare[0]);
+        });
+        await waitFor(() => {
+          userEvent.click(btnShare[1]);
+        });
         const btnFood = screen.getByRole('button', {
           name: /food/i
         });

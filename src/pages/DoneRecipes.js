@@ -1,30 +1,32 @@
-// import { copy } from 'fs-extra';
-import React, { useContext, useEffect } from 'react';
+import clipboardCopy from 'clipboard-copy';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
 import referenceData from './mockDone';
 
-// const copy = require('clipboard-copy');
-
 function DoneRecipes() {
   const { setTitlePage, filterDoneRecipes,
     setFilterDoneRecipes, mapDoneRecipe, setMapDoneRecipe } = useContext(RecipesContext);
+
+  const [isMessageOn, setIsMessageOn] = useState(false);
+  const [share, setShare] = useState({});
   useEffect(() => {
     setTitlePage('Done Recipes');
   }, [setTitlePage]);
 
-  // Requisito 47 - Dificil hein Leke
-  const handleClick = (id, type) => {
-    global.alert('Link copied!', id, type);
-    // if (type === 'food') {
-    //   copy(`/foods/${id}`);
-    // }
-    // if (type === 'drink') {
-    //   copy(`/drinks/${id}`);
-    // }
-  };
+  useEffect(() => {
+    const ok = async () => {
+      if (share.type === 'food') {
+        await clipboardCopy(`http://localhost:3000/foods/${share.id}`);
+      }
+      if (share.type === 'drink') {
+        await clipboardCopy(`http://localhost:3000/drinks/${share.id}`);
+      }
+    };
+    ok();
+  }, [share]);
 
   // Requisito 48 - Filter Done Recipes
   useEffect(() => {
@@ -89,7 +91,10 @@ function DoneRecipes() {
             <button
               type="button"
               data-testid="btn-share-img"
-              onClick={ () => handleClick(recipe.id, recipe.type) }
+              onClick={ () => {
+                setShare({ id: recipe.id, type: recipe.type });
+                setIsMessageOn(!isMessageOn);
+              } }
             >
               <img
                 src={ ShareIcon }
@@ -97,6 +102,7 @@ function DoneRecipes() {
                 data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
+            <span>{ isMessageOn && 'Link copied!' }</span>
             {recipe.tags.map((item, indexs) => (
               <p key={ indexs } data-testid={ `${index}-${item}-horizontal-tag` }>
                 {item}

@@ -24,7 +24,6 @@ function RecipesProvider({ children }) {
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
   const [searchFoodDrink, setSearchFoodDrink] = useState();
-  const history = useHistory();
 
   useEffect(() => {
     const handlePass = () => {
@@ -38,6 +37,7 @@ function RecipesProvider({ children }) {
     handlePass();
   }, [email, password]);
 
+  const history = useHistory();
   const getRevenue = async (searchA, searchB) => {
     const { pathname } = history.location;
     if (pathname === '/foods') {
