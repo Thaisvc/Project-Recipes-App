@@ -12,6 +12,7 @@ function RecipeDetails() {
   const { idDrink } = useParams();
   const { idFood } = useParams();
   const { pathname } = useLocation();
+  const SIX = 6;
 
   useEffect(() => {
     const func = async () => {

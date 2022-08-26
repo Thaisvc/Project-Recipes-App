@@ -25,6 +25,7 @@ function RecipesProvider({ children }) {
   const [radioInput, setRadioInput] = useState('');
   const [searchFoodDrink, setSearchFoodDrink] = useState();
   const [recipeDetail, setRecipeDetail] = useState([]);
+  const [recipeInProgress, setRecipeInProgress] = useState([]);
   useEffect(() => {
     const handlePass = () => {
       const SIX = 6;
@@ -73,6 +74,8 @@ function RecipesProvider({ children }) {
     titlePage,
     radioInput,
     searchFoodDrink,
+    recipeInProgress,
+    setRecipeInProgress,
     setApiOfDrink,
     setApiOfFood,
     setClickOne,
