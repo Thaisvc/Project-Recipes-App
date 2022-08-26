@@ -5,9 +5,10 @@ import apiFood from '../fetchApi/apiFood';
 import apiDrink from '../fetchApi/apiDrink';
 
 function RecipeDetails() {
-  const { setRecipeDetail, recipeDetail, titlePage, setFoodsApi, setDrinksApi,
-    setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, drinksApi,
-  } = useContext(RecipesContext);
+  const { setRecipeDetail,
+    recipeDetail, titlePage, setFoodsApi, setDrinksApi,
+    setCategoryFoodsBtn,
+    setApiOfFood, setApiOfDrink, drinksApi, foodsApi } = useContext(RecipesContext);
   const { idDrink } = useParams();
   const { idFood } = useParams();
   const { pathname } = useLocation();
@@ -24,9 +25,6 @@ function RecipeDetails() {
         setDrinksApi(resultsDrinks);
         setApiOfDrink(resultsDrinks);
       }
-      // if () {
-
-      // }
     };
     func();
   }, [setFoodsApi, setDrinksApi,
@@ -53,12 +51,14 @@ function RecipeDetails() {
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
+
   const handleEmbed = () => {
     const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
     const numberToEmber = ember.map((a) => a[1]);
+    console.log(ember);
+    console.log(numberToEmber);
     return numberToEmber[0];
   };
-  const SIX = 6;
 
   return (
     <div>
@@ -86,8 +86,6 @@ function RecipeDetails() {
               </p>
             )) }
           <p data-testid="instructions">{ recipe.strInstructions }</p>
-          {/* { Object.keys(recipe).filter((k) => k.includes('strIngredient'))
-              .map((ingredient) => recipe[ingredient]) } */}
         </div>
       ))) : (
         <div>
@@ -125,15 +123,22 @@ function RecipeDetails() {
 
             </div>
           ))}
-          { drinksApi.slice(0, SIX).map((d, index) => (
-            <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <p>{ d.strDrink }</p>
-              <p>{ d.strAlcoholic }</p>
-              <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
-            </div>
-          )) }
         </div>
       )}
+      { pathname.includes('foods') ? (drinksApi.slice(0, SIX).map((d, index) => (
+        <div key={ index } data-testid={ `${index}-recomendation-card` }>
+          <p>{ d.strDrink }</p>
+          <p>{ d.strAlcoholic }</p>
+          <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
+        </div>
+      ))) : null }
+      { pathname.includes('drinks') ? (foodsApi.slice(0, SIX).map((d, index) => (
+        <div key={ index } data-testid={ `${index}-recomendation-card` }>
+          <p>{ d.strMeal }</p>
+          <p>{ d.strCategory }</p>
+          <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
+        </div>
+      ))) : null }
     </div>
   );
 }

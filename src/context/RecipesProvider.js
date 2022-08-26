@@ -25,7 +25,6 @@ function RecipesProvider({ children }) {
   const [radioInput, setRadioInput] = useState('');
   const [searchFoodDrink, setSearchFoodDrink] = useState();
   const [recipeDetail, setRecipeDetail] = useState([]);
-
   useEffect(() => {
     const handlePass = () => {
       const SIX = 6;
@@ -37,7 +36,6 @@ function RecipesProvider({ children }) {
     };
     handlePass();
   }, [email, password]);
-
   const history = useHistory();
   const getRevenue = async (searchA, searchB) => {
     const { pathname } = history.location;
@@ -55,7 +53,6 @@ function RecipesProvider({ children }) {
       } else { history.push('receitas/drinks'); }
     }
   };
-
   const objContext = {
     apiOfFood,
     apiOfDrink,
@@ -99,16 +96,13 @@ function RecipesProvider({ children }) {
     setRecipeDetail,
     recipeDetail,
   };
-
   return (
     <RecipesContext.Provider value={ objContext }>
       {children}
     </RecipesContext.Provider>
   );
 }
-
 RecipesProvider.propTypes = {
   children: PropTypes.node,
 }.isRequired;
-
 export default RecipesProvider;
