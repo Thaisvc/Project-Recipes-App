@@ -1,16 +1,29 @@
 import React, { useContext, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import apiFood from '../fetchApi/apiFood';
 import apiDrink from '../fetchApi/apiDrink';
 
 function RecipeDetails() {
+  const history = useHistory();
+  const { idDrink } = useParams();
+  const { idFood } = useParams();
+
+  const handlerprogres = () => {
+    const { pathname } = history.location;
+    if (pathname === `/foods/${idFood}`) {
+      history.push(`${idFood}/in-progress`);
+    } else if (pathname === `/drinks/${idDrink}`) {
+      history.push(`${idDrink}/in-progress`);
+    }
+  };
+
   const { setRecipeDetail,
     recipeDetail, titlePage, setFoodsApi, setDrinksApi,
     setCategoryFoodsBtn,
     setApiOfFood, setApiOfDrink, drinksApi, foodsApi } = useContext(RecipesContext);
-  const { idDrink } = useParams();
-  const { idFood } = useParams();
+  /* const { idDrink } = useParams();
+  const { idFood } = useParams(); */
   const { pathname } = useLocation();
   const SIX = 6;
 
@@ -140,6 +153,16 @@ function RecipeDetails() {
           <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
         </div>
       ))) : null }
+
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="start_recipe"
+        onClick={ handlerprogres }
+      >
+        Start Recipe
+
+      </button>
     </div>
   );
 }

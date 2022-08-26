@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteIcon from '../images/blackHeartIcon.svg';
