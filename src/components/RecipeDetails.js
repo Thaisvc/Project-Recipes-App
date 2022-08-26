@@ -137,7 +137,7 @@ function RecipeDetails() {
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
-              <p>{ d.strDrink }</p>
+              <p data-testid={ `${index}-recomendation-title` }>{ d.strDrink }</p>
               <p>{ d.strAlcoholic }</p>
               <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
             </div>
@@ -152,7 +152,7 @@ function RecipeDetails() {
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
-              <p>{ d.strMeal }</p>
+              <p data-testid={ `${index}-recomendation-title` }>{ d.strMeal }</p>
               <p>{ d.strCategory }</p>
               <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
             </div>

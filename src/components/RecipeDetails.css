@@ -1,6 +1,6 @@
 .testimonials {
   /* margin: auto; */
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .scroller {
@@ -12,6 +12,6 @@
 .item {
   background-color: white;
   min-height: 200px;
-  min-width: 50%;
+  min-width: 70%;
   scroll-snap-align: center;
 }
