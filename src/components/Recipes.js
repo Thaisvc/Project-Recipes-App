@@ -10,16 +10,12 @@ function Recipes() {
     setCategoryFoodsBtn, setApiOfFood, setApiOfDrink } = useContext(RecipesContext);
   useEffect(() => {
     const func = async () => {
-      if (titlePage === 'Foods') {
-        const results = await apiFood();
-        setFoodsApi(results);
-        setApiOfFood(results);
-      }
-      if (titlePage === 'Drinks') {
-        const resultsDrinks = await apiDrink();
-        setDrinksApi(resultsDrinks);
-        setApiOfDrink(resultsDrinks);
-      }
+      const results = await apiFood();
+      setFoodsApi(results);
+      setApiOfFood(results);
+      const resultsDrinks = await apiDrink();
+      setDrinksApi(resultsDrinks);
+      setApiOfDrink(resultsDrinks);
     };
     func();
   }, [setFoodsApi, setDrinksApi,

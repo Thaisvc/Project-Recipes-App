@@ -31,12 +31,10 @@ function RecipeDetails() {
     titlePage, setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, pathname]);
 
   useEffect(() => {
-    // console.log(pathname);
     if (pathname.includes('foods')) {
       const callingFoodIdApi = async (idParam) => {
         const idFoodApi = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idParam}`);
         const responseFoodIdApi = await idFoodApi.json();
-        console.log('chamou api de comida');
         return responseFoodIdApi.meals;
       };
       callingFoodIdApi(idFood).then((response) => setRecipeDetail(response));
@@ -44,32 +42,15 @@ function RecipeDetails() {
       const callingDrinksIdApi = async (idParam) => {
         const idDrinksApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idParam}`);
         const responseDrinksApi = await idDrinksApi.json();
-        console.log('chamou api de bebida');
         return responseDrinksApi.drinks;
       };
       callingDrinksIdApi(idDrink).then((response) => setRecipeDetail(response));
     }
   }, []);
 
-  console.log(recipeDetail);
-
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
-  const arrayOfIngredients = ingredientsFilter[0];
-  console.log(arrayOfIngredients);
-
-  // const measureFilter = recipeDetail.map((recipe) => Object
-  //   .keys(recipe).filter((k) => k.includes('strMeasure'))
-  //   .map((ingredient) => recipe[ingredient]));
-  // const arrayOfMeasures = measureFilter[0];
-  // console.log(arrayOfMeasures);
-
-  // console.log(ember);
-  // console.log(numberToEmber);
-  // console.log(drinksApi);
-  // console.log([...arrayOfIngredients]);
-  const SIX = 6;
 
   const handleEmbed = () => {
     const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
@@ -79,16 +60,9 @@ function RecipeDetails() {
     return numberToEmber[0];
   };
 
-  // const ingredientsAndMeasures = Object
-  //   .keys(recipeDetail[0])
-  //   .filter((k) => k.includes('strIngredient'));
-
-  // const filtering = ingredientsAndMeasures.filter((k) => recipeDetail[0][k] !== null);
-  // // console.log(ingredientsAndMeasures);
-  // console.log(filtering);
-
   return (
     <div>
+      <h1>RecipeDetails</h1>
       { pathname.includes('drinks') ? (recipeDetail.map((recipe) => (
         <div key={ recipe.idDrink }>
           <img
@@ -98,16 +72,19 @@ function RecipeDetails() {
             width="400px"
           />
           <p data-testid="recipe-title">{ recipe.strDrink }</p>
-          <p data-testid="recipe-category">{ recipe.strAlcoholic }</p>
-          { arrayOfIngredients.map((ingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { ingredient }
-              { recipe[`strMeasure${index + 1}`] }
-            </p>
-          )) }
+          <p data-testid="recipe-category">{ recipe.strCategory }</p>
+          { ingredientsFilter[0].filter((ingredient) => ingredient !== null
+          && ingredient.length !== 0)
+            .map((ingredient, index) => (
+              <p
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                { ingredient }
+                {' '}
+                { recipe[`strMeasure${index + 1}`] }
+              </p>
+            )) }
           <p data-testid="instructions">{ recipe.strInstructions }</p>
         </div>
       ))) : (
@@ -122,15 +99,18 @@ function RecipeDetails() {
               />
               <p data-testid="recipe-title">{ recipe.strMeal }</p>
               <p data-testid="recipe-category">{ recipe.strCategory }</p>
-              { arrayOfIngredients.map((ingredient, index) => (
-                <p
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  { ingredient }
-                  { recipe[`strMeasure${index + 1}`] }
-                </p>
-              )) }
+              { ingredientsFilter[0].filter((ingredient) => ingredient !== null
+          && ingredient.length !== 0)
+                .map((ingredient, index) => (
+                  <p
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    { ingredient }
+                    {' '}
+                    { recipe[`strMeasure${index + 1}`] }
+                  </p>
+                )) }
               <p data-testid="instructions">{ recipe.strInstructions }</p>
               <iframe
                 src={ `https://www.youtube.com/embed/${handleEmbed()}` }

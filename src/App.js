@@ -10,6 +10,7 @@ import './App.css';
 import RevenueFoods from './components/RevenueFoods';
 import RecipeDetails from './components/RecipeDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
+
 function App() {
   return (
     <Switch>

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import { Foods, Drinks } from '../serviceSearch/SearchFoodDrink';
+
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
   const [email, setEmail] = useState('');
