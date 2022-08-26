@@ -5,8 +5,10 @@ import apiFood from '../fetchApi/apiFood';
 import apiDrink from '../fetchApi/apiDrink';
 
 function RecipeDetails() {
-  const { setRecipeDetail, recipeDetail, titlePage, setFoodsApi, setDrinksApi,
-    setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, drinksApi } = useContext(RecipesContext);
+  const { setRecipeDetail,
+    recipeDetail, titlePage, setFoodsApi, setDrinksApi,
+    setCategoryFoodsBtn,
+    setApiOfFood, setApiOfDrink, drinksApi, foodsApi } = useContext(RecipesContext);
   const { idDrink } = useParams();
   const { idFood } = useParams();
   const { pathname } = useLocation();
@@ -23,16 +25,13 @@ function RecipeDetails() {
         setDrinksApi(resultsDrinks);
         setApiOfDrink(resultsDrinks);
       }
-      // if () {
-
-      // }
     };
     func();
   }, [setFoodsApi, setDrinksApi,
     titlePage, setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, pathname]);
 
   useEffect(() => {
-    console.log(pathname);
+    // console.log(pathname);
     if (pathname.includes('foods')) {
       const callingFoodIdApi = async (idParam) => {
         const idFoodApi = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idParam}`);
@@ -53,18 +52,40 @@ function RecipeDetails() {
   }, []);
 
   console.log(recipeDetail);
+
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
   const arrayOfIngredients = ingredientsFilter[0];
   console.log(arrayOfIngredients);
-  const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
-  const numberToEmber = ember.map((a) => a[1]);
+
+  // const measureFilter = recipeDetail.map((recipe) => Object
+  //   .keys(recipe).filter((k) => k.includes('strMeasure'))
+  //   .map((ingredient) => recipe[ingredient]));
+  // const arrayOfMeasures = measureFilter[0];
+  // console.log(arrayOfMeasures);
+
   // console.log(ember);
   // console.log(numberToEmber);
   // console.log(drinksApi);
-  console.log(ingredientsFilter);
+  // console.log([...arrayOfIngredients]);
   const SIX = 6;
+
+  const handleEmbed = () => {
+    const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
+    const numberToEmber = ember.map((a) => a[1]);
+    console.log(ember);
+    console.log(numberToEmber);
+    return numberToEmber[0];
+  };
+
+  // const ingredientsAndMeasures = Object
+  //   .keys(recipeDetail[0])
+  //   .filter((k) => k.includes('strIngredient'));
+
+  // const filtering = ingredientsAndMeasures.filter((k) => recipeDetail[0][k] !== null);
+  // // console.log(ingredientsAndMeasures);
+  // console.log(filtering);
 
   return (
     <div>
@@ -77,18 +98,17 @@ function RecipeDetails() {
             width="400px"
           />
           <p data-testid="recipe-title">{ recipe.strDrink }</p>
-          <p data-testid="recipe-category">{ recipe.strCategory }</p>
+          <p data-testid="recipe-category">{ recipe.strAlcoholic }</p>
           { arrayOfIngredients.map((ingredient, index) => (
             <p
               key={ index }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               { ingredient }
+              { recipe[`strMeasure${index + 1}`] }
             </p>
           )) }
           <p data-testid="instructions">{ recipe.strInstructions }</p>
-          {/* { Object.keys(recipe).filter((k) => k.includes('strIngredient'))
-              .map((ingredient) => recipe[ingredient]) } */}
         </div>
       ))) : (
         <div>
@@ -108,12 +128,12 @@ function RecipeDetails() {
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   { ingredient }
-                  {/* { recipe.strMeasure1 } */}
+                  { recipe[`strMeasure${index + 1}`] }
                 </p>
               )) }
               <p data-testid="instructions">{ recipe.strInstructions }</p>
               <iframe
-                src={ `https://www.youtube.com/embed/${numberToEmber[0]}` }
+                src={ `https://www.youtube.com/embed/${handleEmbed()}` }
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
@@ -123,15 +143,22 @@ function RecipeDetails() {
 
             </div>
           ))}
-          { drinksApi.slice(0, SIX).map((d, index) => (
-            <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <p>{ d.strDrink }</p>
-              <p>{ d.strAlcoholic }</p>
-              <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
-            </div>
-          )) }
         </div>
       )}
+      { pathname.includes('foods') ? (drinksApi.slice(0, SIX).map((d, index) => (
+        <div key={ index } data-testid={ `${index}-recomendation-card` }>
+          <p>{ d.strDrink }</p>
+          <p>{ d.strAlcoholic }</p>
+          <img width="60px" src={ d.strDrinkThumb } alt={ `${d.strDrink}-recipe` } />
+        </div>
+      ))) : null }
+      { pathname.includes('drinks') ? (foodsApi.slice(0, SIX).map((d, index) => (
+        <div key={ index } data-testid={ `${index}-recomendation-card` }>
+          <p>{ d.strMeal }</p>
+          <p>{ d.strCategory }</p>
+          <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
+        </div>
+      ))) : null }
     </div>
   );
 }
