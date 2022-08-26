@@ -7,10 +7,8 @@ import RecipesProvider from './context/RecipesProvider';
 ReactDOM.render(
   <BrowserRouter>
     <RecipesProvider>
-
       <App />
     </RecipesProvider>
-    ,
   </BrowserRouter>,
   document.getElementById('root'),
 );

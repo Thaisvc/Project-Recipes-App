@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import categoryDrinksApi from '../fetchApi/categoryDrinksApi';
 
@@ -66,15 +67,17 @@ function DrinksRecipes() {
         </button>
       ))}
       {drinksApi.slice(0, minArray).map((drink, index) => (
-        <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
-          <img
-            src={ drink.strDrinkThumb }
-            alt={ drink.strDrink }
-            width="100px"
-            data-testid={ `${index}-card-img` }
-          />
-          <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
-        </div>
+        <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ drink.strDrinkThumb }
+              alt={ drink.strDrink }
+              width="100px"
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+          </div>
+        </Link>
       ))}
     </div>);
 }

@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import { Foods, Drinks } from '../serviceSearch/SearchFoodDrink';
-
 function RecipesProvider({ children }) {
   const [titlePage, setTitlePage] = useState('Foods');
   const [email, setEmail] = useState('');
@@ -24,7 +23,7 @@ function RecipesProvider({ children }) {
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
   const [searchFoodDrink, setSearchFoodDrink] = useState();
-
+  const [recipeDetail, setRecipeDetail] = useState([]);
   useEffect(() => {
     const handlePass = () => {
       const SIX = 6;
@@ -36,7 +35,6 @@ function RecipesProvider({ children }) {
     };
     handlePass();
   }, [email, password]);
-
   const history = useHistory();
   const getRevenue = async (searchA, searchB) => {
     const { pathname } = history.location;
@@ -54,7 +52,6 @@ function RecipesProvider({ children }) {
       } else { history.push('receitas/drinks'); }
     }
   };
-
   const objContext = {
     apiOfFood,
     apiOfDrink,
@@ -95,17 +92,16 @@ function RecipesProvider({ children }) {
     setRadioInput,
     getRevenue,
     setSearchFoodDrink,
+    setRecipeDetail,
+    recipeDetail,
   };
-
   return (
     <RecipesContext.Provider value={ objContext }>
       {children}
     </RecipesContext.Provider>
   );
 }
-
 RecipesProvider.propTypes = {
   children: PropTypes.node,
 }.isRequired;
-
 export default RecipesProvider;
