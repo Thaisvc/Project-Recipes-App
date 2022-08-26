@@ -5,10 +5,12 @@ import App from './App';
 import RecipesProvider from './context/RecipesProvider';
 
 ReactDOM.render(
-  <RecipesProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <RecipesProvider>
+
       <App />
-    </BrowserRouter>
-  </RecipesProvider>,
+    </RecipesProvider>
+    ,
+  </BrowserRouter>,
   document.getElementById('root'),
 );
