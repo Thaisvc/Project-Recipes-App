@@ -1,0 +1,17 @@
+.testimonials {
+  /* margin: auto; */
+  max-width: 400px;
+}
+
+.scroller {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.item {
+  background-color: white;
+  min-height: 200px;
+  min-width: 50%;
+  scroll-snap-align: center;
+}
