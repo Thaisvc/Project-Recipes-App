@@ -20,12 +20,12 @@ function DrinksInProgress() {
           />
           <h3 data-testid="recipe-title">{ recipe.strDrink }</h3>
           <p data-testid="recipe-category">{ recipe.strCategory }</p>
-          { ingredientsFilter[0].filter((hehe) => hehe !== null && hehe.length !== 0)
+          { ingredientsFilter[0].filter((ingredient) => ingredient !== null
+          && ingredient.length !== 0)
             .map((ingredient, index) => (
-              <p key={ index }>
+              <p key={ index } data-testid={ `${index}-ingredient-step` }>
                 <input
                   type="checkbox"
-                  data-testid={ `${index}-ingredient-step` }
                 />
                 {ingredient}
               </p>
