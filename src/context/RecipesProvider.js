@@ -24,6 +24,7 @@ function RecipesProvider({ children }) {
   const [nameInput, setNameInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
   const [searchFoodDrink, setSearchFoodDrink] = useState();
+  const [recipeDetail, setRecipeDetail] = useState([]);
 
   useEffect(() => {
     const handlePass = () => {
@@ -95,6 +96,8 @@ function RecipesProvider({ children }) {
     setRadioInput,
     getRevenue,
     setSearchFoodDrink,
+    setRecipeDetail,
+    recipeDetail,
   };
 
   return (

@@ -36,4 +36,3 @@ describe('Tela de Login', () => {
   expect(history.location.pathname).toBe('/foods');
 });
 });
-
