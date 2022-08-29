@@ -29,6 +29,7 @@ function Favorites() {
           <p data-testid={ `${index}-horizontal-top-text` }>
             {/* Requisito 51 - Apenas adaptei o que seria renderizado para esse data-testid */}
             { `${item.nationality} - ${item.category}` }
+            { item.alcoholicOrNot && <p>{item.alcoholicOrNot}</p> }
           </p>
           <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
           <button type="button">
