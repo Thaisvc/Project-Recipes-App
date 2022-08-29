@@ -15,6 +15,14 @@ function Favorites() {
       setFavoriteItems(favoritesLocalStorage);
     }
   }, [setTitlePage]);
+  // Requisito 54 - Função que filtra os ID's das receitas favoritas deixando todas menos a que está sendo desfavoritada
+  const unfavorite = (itemID) => {
+    const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newFilter = favoritesLocalStorage.filter((item) => (item.id !== itemID));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFilter));
+    // Requisito 54 - Ao filtrar coloco o novo array no state 'favoriteItems' para serem renderizados.
+    setFavoriteItems(newFilter);
+  };
 
   return (
     <div>
@@ -42,7 +50,8 @@ function Favorites() {
                 data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
-            <button type="button">
+            {/* Requisito 54 - Ao clicar no botão é executada a função 'unfavorite' com o id específico da receita que deseja desfavoritar */}
+            <button type="button" onClick={ () => unfavorite(item.id) }>
               <img
                 src={ blackHeartIcon }
                 alt="favorite button"
