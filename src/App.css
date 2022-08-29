@@ -71,3 +71,8 @@ footer {
     transform: rotate(-10deg);
   }
 }
+
+.start_recipe {
+  bottom: 0;
+  position: fixed;
+}
