@@ -170,14 +170,16 @@ function RecipeDetails() {
               <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
             </div>
           ))) : null }
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="start_recipe"
-          onClick={ handlerprogres }
-        >
-          Start Recipe
-        </button>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="start_recipe"
+            onClick={ handlerprogres }
+          >
+            Start Recipe
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
