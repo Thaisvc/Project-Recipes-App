@@ -26,7 +26,10 @@ function Favorites() {
       { favoriteItems.map((item, index) => (
         <div key={ index }>
           <img src={ item.image } alt="" data-testid={ `${index}-horizontal-image` } />
-          <p data-testid={ `${index}-horizontal-top-text` }>{item.category}</p>
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {/* Requisito 51 - Apenas adaptei o que seria renderizado para esse data-testid */}
+            { `${item.nationality} - ${item.category}` }
+          </p>
           <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
           <button type="button">
             <img
