@@ -59,7 +59,7 @@ function RecipesProvider({ children }) {
     }
   };
     // Requisito 33 - Criando a função que copia o link atual para o clipboard ao clicar no botão "Share"
-  const handleShare = () => { copy(window.location.href); setLinkCopied(true); };
+  const handleShare = (urlCopy) => { copy(urlCopy); setLinkCopied(true); };
   // Requisito 34 - Criada duas funções separadas da handleFavorite pois a complexidade da handleFavorite estava muito alta. Essas funções abaixo são executadas na handleFavorite.
   const addFirstFavorite = (type) => {
     localStorage.setItem('favoriteRecipes', JSON.stringify([{

@@ -5,7 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function Favorites() {
-  const { setTitlePage } = useContext(RecipesContext);
+  const { setTitlePage, handleShare, linkCopied } = useContext(RecipesContext);
   const [favoriteItems, setFavoriteItems] = useState([]);
   useEffect(() => {
     setTitlePage('Favorite Recipes');
@@ -29,25 +29,28 @@ function Favorites() {
           <p data-testid={ `${index}-horizontal-top-text` }>
             {/* Requisito 51 - Apenas adaptei o que seria renderizado para esse data-testid */}
             { `${item.nationality} - ${item.category}` }
+            {/* Requisito 52 - Apenas inseri o parágrafo de alcoholicOrNot caso seja um drink */}
             { item.alcoholicOrNot && <p>{item.alcoholicOrNot}</p> }
           </p>
           <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
-          <button type="button">
-            <img
-              src={ shareIcon }
-              alt="share button"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
-          <button
-            type="button"
-          >
-            <img
-              src={ blackHeartIcon }
-              alt="favorite button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-            />
-          </button>
+          <div>
+            {/* Requisito 53 - Utilizei a funçao handleShare que estava no RecipesProvider para copiar o link da receita e renderizar o "Link copied!" */}
+            <button type="button" onClick={ () => handleShare(`http://localhost:3000/${item.type}s/${item.id}`) }>
+              <img
+                src={ shareIcon }
+                alt="share button"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
+            </button>
+            <button type="button">
+              <img
+                src={ blackHeartIcon }
+                alt="favorite button"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
+            </button>
+          </div>
+          {linkCopied && <span>Link copied!</span>}
         </div>
       ))}
     </div>

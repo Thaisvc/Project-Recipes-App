@@ -97,7 +97,7 @@ function RecipeDetails() {
           <p data-testid="instructions">{ recipe.strInstructions }</p>
           {/* Requisito 32 - Implementando 2 botões de "Compartilhar" e "Favoritar" */}
           <div>
-            <button type="button" onClick={ handleShare }>
+            <button type="button" onClick={ () => handleShare(window.location.href) }>
               <img src={ shareIcon } alt="share button" data-testid="share-btn" />
             </button>
             <button type="button" onClick={ () => handleFavorite(type, idFood, idDrink) }>
@@ -143,7 +143,7 @@ function RecipeDetails() {
               />
               {/* Requisito 32 - Implementando 2 botões de "Compartilhar" e "Favoritar" */}
               <div>
-                <button type="button" onClick={ handleShare }>
+                <button type="button" onClick={ () => handleShare(window.location.href) }>
                   <img src={ shareIcon } alt="share button" data-testid="share-btn" />
                 </button>
                 <button
