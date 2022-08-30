@@ -13,6 +13,7 @@ function RecipeDetails() {
     setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, drinksApi, foodsApi, linkCopied,
     setLinkCopied, favorited, handleShare, handleFavorite, getFavoriteLocalStorage,
   } = useContext(RecipesContext);
+
   const [inProgressItems, setInProgressItems] = useState(false);
   const { idDrink, idFood } = useParams();
   const history = useHistory();
@@ -58,6 +59,7 @@ function RecipeDetails() {
       history.push(`${idDrink}/in-progress`);
     }
   };
+
   useEffect(() => {
     const func = async () => {
       if (pathname.includes('drinks')) {
@@ -101,14 +103,13 @@ function RecipeDetails() {
           .some((key) => key === idDrink));
       }
     }
-    getFavoriteLocalStorage();
+    getFavoriteLocalStorage(idFood, idDrink);
     setLinkCopied(false);
   }, []);
 
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
-
   const handleEmbed = () => {
     const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
     const numberToEmber = ember.map((a) => a[1]);
@@ -230,8 +231,7 @@ function RecipeDetails() {
               <p data-testid={ `${index}-recomendation-title` }>{ d.strMeal }</p>
               <p>{ d.strCategory }</p>
               <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
-            </div>
-          ))) : null }
+            </div>))) : null }
           <button
             data-testid="start-recipe-btn"
             type="button"
