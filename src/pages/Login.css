@@ -1,0 +1,75 @@
+.form-class {
+  align-items: center;
+  background-image: url('https://images.unsplash.com/photo-1535473895227-bdecb20fb157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  row-gap: 10px;
+}
+
+.form-class input {
+  border-radius: 4px;
+  padding: 5px;
+  width: 200px;
+}
+
+.form-class label {
+  display: flex;
+  flex-direction: column;
+}
+
+.email-input-class {
+  margin: 10px 0;
+}
+
+.pass-input-class {
+  margin: 10px 0;
+}
+
+.form-class button {
+  margin-top: 40px;
+}
+
+.form-class button:disabled {
+  background-color: #ddd;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+  width: 80px;
+}
+
+.form-class button:enabled {
+  background-color: #ec4f37;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px black;
+  color: white;
+  height: 30px;
+  width: 80px;
+}
+
+.login-class {
+  align-items: center;
+  background-color: rgb(213, 213, 213);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: center;
+  opacity: 0.9;
+  width: 250px;
+}
+
+.login-class h1 {
+  font-family: Dancing Script , sans-serif;
+  font-size: 45px;
+}
+
+.h1-class {
+  color: #ec4f37;
+  display: flex;
+  height: 60px;
+  position: relative;
+  top: -25px;
+}
