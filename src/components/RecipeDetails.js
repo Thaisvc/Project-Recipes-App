@@ -103,9 +103,9 @@ function RecipeDetails() {
           .some((key) => key === idDrink));
       }
     }
-    getFavoriteLocalStorage(idFood, idDrink);
-    setLinkCopied(false);
-  }, []);
+     getFavoriteLocalStorage(idFood, idDrink);
+     setLinkCopied(false);
+  }, [idDrink, idFood, pathname, setRecipeDetail]);
 
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))

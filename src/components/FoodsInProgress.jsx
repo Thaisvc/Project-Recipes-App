@@ -1,13 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteIcon from '../images/blackHeartIcon.svg';
+import { getItemStorageProgressRecipe, setCheckbox } from '../services/localStore';
 
 function FoodsInProgress() {
+  const { idFoods } = useParams();
   const { recipeInProgress } = useContext(RecipesContext);
   const ingredientsFilter = recipeInProgress.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
+  const [ingredietCheckbox, setIngredietCheckbox] = useState([]);
+  const [local, setLocal] = useState([]);
+  useEffect(() => {
+    const verificarLocalStorage = () => {
+      const verificarLocal = getItemStorageProgressRecipe('inProgressRecipes');
+      setLocal(verificarLocal);
+    };
+    verificarLocalStorage();
+  }, [ingredietCheckbox]);
+
+  const addItemStore = (value) => {
+    const verificLocal = getItemStorageProgressRecipe('inProgressRecipes');
+    console.log(verificLocal);
+    if (verificLocal) {
+      const objStore = { meals: {
+        ...verificLocal.meals,
+        [idFoods]: value,
+      },
+      cocktails: { ...verificLocal.cocktails } };
+      console.log(objStore);
+      setCheckbox('inProgressRecipes', objStore);
+    }
+  };
   return (
     <div>
       {recipeInProgress.map((recipe) => (
@@ -26,6 +52,14 @@ function FoodsInProgress() {
               <p key={ index } data-testid={ `${index}-ingredient-step` }>
                 <input
                   type="checkbox"
+                  value={ ingredient }
+                  onChange={ ({ target: { value } }) => {
+                    addItemStore([...ingredietCheckbox, value]);
+                    setIngredietCheckbox([...ingredietCheckbox, value]);
+                  } }
+                  checked={ (local.meals[idFoods] !== undefined)
+                    && local.meals[idFoods]
+                      .some((item) => item === ingredient) }
                 />
                 {ingredient}
               </p>
