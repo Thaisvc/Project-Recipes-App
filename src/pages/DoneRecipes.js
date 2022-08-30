@@ -72,7 +72,7 @@ function DoneRecipes() {
         >
           Drinks
         </button>
-        {mapDoneRecipe.map((recipe, index) => (
+        {mapDoneRecipe !== null && mapDoneRecipe.map((recipe, index) => (
           <div key={ (recipe.id * index) / 2 }>
             <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
