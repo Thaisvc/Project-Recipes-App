@@ -53,7 +53,7 @@ function DrinksInProgress() {
   }, [setFavorited, idFood, idDrink]);
 
   const data = new Date();
-  console.log(data.toLocaleDateString());
+
   return (
     <div>
       {recipeDetail.map((recipe) => (
