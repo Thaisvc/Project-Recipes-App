@@ -60,16 +60,16 @@ function RecipesProvider({ children }) {
     // Requisito 33 - Criando a função que copia o link atual para o clipboard ao clicar no botão "Share"
   const handleShare = (urlCopy) => { copy(urlCopy); setLinkCopied(true); };
   // Requisito 34 - Criada duas funções separadas da handleFavorite pois a complexidade da handleFavorite estava muito alta. Essas funções abaixo são executadas na handleFavorite.
-  const addFirstFavorite = (type, idFood, idDrink) => {
+  const addFirstFavorite = (type) => {
     localStorage.setItem('favoriteRecipes', JSON.stringify([{
-      id: type === 'foods' ? idFood : idDrink,
+      id: type === 'foods' ? recipeDetail[0].idMeal : recipeDetail[0].idDrink,
       type: type === 'foods' ? 'food' : 'drink',
       nationality: recipeDetail[0].strArea ? recipeDetail[0].strArea : '',
       category: recipeDetail[0].strCategory,
       alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
       name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
-      image: type === 'foods' ? (
-        recipeDetail[0].strMealThumb) : (recipeDetail[0].strDrinkThumb),
+      image: type === 'foods'
+        ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
     }]));
   };
   const addNewFavorite = (type, favoritesLocalStorage, idFood, idDrink) => {
@@ -81,8 +81,8 @@ function RecipesProvider({ children }) {
         category: recipeDetail[0].strCategory,
         alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
         name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
-        image: type === 'foods' ? (
-          recipeDetail[0].strMealThumb) : (recipeDetail[0].strDrinkThumb),
+        image: type === 'foods'
+          ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
       }]));
   };
   // Requisito 34 - Função que salva no localStorage o primeiro favorito ou acrescenta mais um favorito na lista.
@@ -114,6 +114,48 @@ function RecipesProvider({ children }) {
       const boolean = favoritesLocalStorage
         .some((item) => (item.id === idFood ? idFood : idDrink));
       if (boolean === true) { setFavorited(true); }
+    }
+  };
+
+  const addNewDoneRecipe = ({ type, tags, data },
+    favoritesLocalStorage) => {
+    console.log(recipeDetail[0]);
+    localStorage.setItem('doneRecipes', JSON.stringify([
+      ...favoritesLocalStorage,
+      { id: type === 'foods' ? recipeDetail[0].idMeal : recipeDetail[0].idDrink,
+        type: type === 'foods' ? 'food' : 'drink',
+        nationality: recipeDetail[0].strArea ? recipeDetail[0].strArea : '',
+        category: recipeDetail[0].strCategory,
+        alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
+        name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
+        image: type === 'foods'
+          ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
+        doneDate: data,
+        tags,
+      }]));
+  };
+
+  const addFirstDoneRecipe = ({ type, tags, data }) => {
+    console.log(recipeDetail[0]);
+    localStorage.setItem('doneRecipes', JSON.stringify([{
+      id: type === 'foods' ? recipeDetail[0].idMeal : recipeDetail[0].idDrink,
+      type: type === 'foods' ? 'food' : 'drink',
+      nationality: recipeDetail[0].strArea ? recipeDetail[0].strArea : '',
+      category: recipeDetail[0].strCategory,
+      alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
+      name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
+      image: type === 'foods'
+        ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
+      doneDate: data,
+      tags,
+    }]));
+  };
+
+  const handleDoneRecipe = (obj) => {
+    const doneRecipesLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesLocalStorage === null) { addFirstDoneRecipe(obj); }
+    if (doneRecipesLocalStorage !== null) {
+      addNewDoneRecipe(obj, doneRecipesLocalStorage);
     }
   };
 
@@ -162,6 +204,8 @@ function RecipesProvider({ children }) {
     linkCopied,
     setLinkCopied,
     favorited,
+    setFavorited,
+    handleDoneRecipe,
     handleShare,
     handleFavorite,
     getFavoriteLocalStorage,

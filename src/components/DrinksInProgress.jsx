@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import clipboard from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
@@ -11,9 +11,10 @@ function DrinksInProgress() {
   const [ingredietCheckbox, setIngredietCheckbox] = useState([]);
   const [local, setLocal] = useState([]);
   const [isMessageOn, setIsMessageOn] = useState(false);
+  const [count, setCount] = useState(0);
   const { idDrink, idFood } = useParams();
   const { recipeDetail, favorited, handleFavorite,
-    getFavoriteLocalStorage } = useContext(RecipesContext);
+    setFavorited, handleDoneRecipe } = useContext(RecipesContext);
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
@@ -36,10 +37,23 @@ function DrinksInProgress() {
       setLocal(verificarLocal);
     };
     verificarLocalStorage();
-    getFavoriteLocalStorage(idFood, idDrink);
-  }, [ingredietCheckbox, getFavoriteLocalStorage,
-    idFood, idDrink]);
+    setCount(count + 1);
+  }, [ingredietCheckbox]);
 
+  useEffect(() => {
+    const favoritas = () => {
+      const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoritesLocalStorage !== null) {
+        const boolean = favoritesLocalStorage
+          .some((item) => (item.id === idFood ? idFood : idDrink));
+        if (boolean === true) { setFavorited(true); }
+      }
+    };
+    favoritas();
+  }, [setFavorited, idFood, idDrink]);
+
+  const data = new Date();
+  console.log(data.toLocaleDateString());
   return (
     <div>
       {recipeDetail.map((recipe) => (
@@ -63,7 +77,7 @@ function DrinksInProgress() {
                     setIngredietCheckbox([...ingredietCheckbox, value]);
                     addItemStore([...ingredietCheckbox, value]);
                   } }
-                  checked={ (local.cocktails[idDrink] !== undefined)
+                  checked={ (local.length !== 0 && local.cocktails[idDrink] !== undefined)
                     && local.cocktails[idDrink].some((item) => item === ingredient) }
                 />
                 {ingredient}
@@ -95,7 +109,22 @@ function DrinksInProgress() {
             <img src={ ShareIcon } alt="share-icon" />
           </button>
           <span>{ isMessageOn && 'Link copied!' }</span>
-          <button type="button" data-testid="finish-recipe-btn">Finish Recipe</button>
+          <Link to="/done-recipes">
+            <button
+              type="button"
+              data-testid="finish-recipe-btn"
+              disabled={ (ingredientsFilter[0]
+                .filter((ingredient) => ingredient !== null
+            && ingredient.length !== 0).length !== count - 1) }
+              onClick={ () => handleDoneRecipe({ type: 'drink',
+                tags: ingredientsFilter[0]
+                  .filter((ingredient) => ingredient !== null
+                && ingredient.length !== 0),
+                data: data.toLocaleDateString() }) }
+            >
+              Finish Recipe
+            </button>
+          </Link>
         </div>
       ))}
     </div>
