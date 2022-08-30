@@ -11,10 +11,11 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RecipeDetails() {
   const { setRecipeDetail, recipeDetail, titlePage, setFoodsApi, setDrinksApi,
     setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, drinksApi, foodsApi, linkCopied,
-    setLinkCopied, favorited, setFavorited, handleShare, handleFavorite,
+    setLinkCopied, favorited, handleShare, handleFavorite, getFavoriteLocalStorage,
   } = useContext(RecipesContext);
-  const { idDrink, idFood } = useParams();
   const [inProgressItems, setInProgressItems] = useState(false);
+  const { idDrink, idFood } = useParams();
+  const history = useHistory();
   const { pathname } = useLocation();
   const type = pathname.slice('1', '6');
   const SIX = 6;
@@ -57,7 +58,6 @@ function RecipeDetails() {
       history.push(`${idDrink}/in-progress`);
     }
   };
-
   useEffect(() => {
     const func = async () => {
       if (pathname.includes('drinks')) {
@@ -74,7 +74,6 @@ function RecipeDetails() {
     func();
   }, [setFoodsApi, setDrinksApi,
     titlePage, setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, pathname]);
-
   useEffect(() => {
     if (pathname.includes('foods')) {
       const callingFoodIdApi = async (idParam) => {
@@ -102,14 +101,7 @@ function RecipeDetails() {
           .some((key) => key === idDrink));
       }
     }
-    // Requisito 35 - Abaixo é feita a verificação se o ID dessa receita atual da página é encontrado na chave 'favoriteRecipes' do localStorage
-    const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoritesLocalStorage !== null) {
-      // Requisito 35 - Se esse ID for encontrado, o state 'favorited' será true e isso renderiza o ícone 'blackHeartIcon'. Se não for encontrado, o state se mantém false e a renderização continua sendo do 'whiteHeartIcon'
-      const boolean = favoritesLocalStorage
-        .some((item) => (item.id === idFood ? idFood : idDrink));
-      if (boolean === true) { setFavorited(true); }
-    }
+    getFavoriteLocalStorage();
     setLinkCopied(false);
   }, []);
 
@@ -120,8 +112,6 @@ function RecipeDetails() {
   const handleEmbed = () => {
     const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
     const numberToEmber = ember.map((a) => a[1]);
-    console.log(ember);
-    console.log(numberToEmber);
     return numberToEmber[0];
   };
 

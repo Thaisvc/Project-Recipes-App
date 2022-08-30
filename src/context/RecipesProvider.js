@@ -107,6 +107,16 @@ function RecipesProvider({ children }) {
     }
   };
 
+  // Requisito 35 - Abaixo é feita a verificação se o ID dessa receita atual da página é encontrado na chave 'favoriteRecipes' do localStorage. Se esse ID for encontrado, o state 'favorited' será true e isso renderiza o ícone 'blackHeartIcon'. Se não for encontrado, o state se mantém false e a renderização continua sendo do 'whiteHeartIcon'.
+  const getFavoriteLocalStorage = () => {
+    const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoritesLocalStorage !== null) {
+      const boolean = favoritesLocalStorage
+        .some((item) => (item.id === idFood ? idFood : idDrink));
+      if (boolean === true) { setFavorited(true); }
+    }
+  };
+
   const objContext = {
     apiOfFood,
     apiOfDrink,
@@ -154,9 +164,9 @@ function RecipesProvider({ children }) {
     linkCopied,
     setLinkCopied,
     favorited,
-    setFavorited,
     handleShare,
     handleFavorite,
+    getFavoriteLocalStorage,
   };
   return (
     <RecipesContext.Provider value={ objContext }>
