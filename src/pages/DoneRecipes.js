@@ -29,10 +29,9 @@ function DoneRecipes() {
 
   // Requisito 48 - Filter Done Recipes
   const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(localDoneRecipes);
   useEffect(() => {
     setMapDoneRecipe(localDoneRecipes);
-  }, [setMapDoneRecipe]);
+  }, [setMapDoneRecipe, localDoneRecipes]);
   useEffect(() => {
     if (filterDoneRecipes === 'Food') {
       setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
@@ -42,7 +41,7 @@ function DoneRecipes() {
       setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'drink'));
     }
-  }, [filterDoneRecipes, setMapDoneRecipe]);
+  }, [filterDoneRecipes, localDoneRecipes, setMapDoneRecipe]);
 
   return (
     <div>
