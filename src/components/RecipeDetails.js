@@ -4,12 +4,22 @@ import RecipesContext from '../context/RecipesContext';
 import apiFood from '../fetchApi/apiFood';
 import apiDrink from '../fetchApi/apiDrink';
 import './RecipeDetails.css';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeDetails() {
-  const history = useHistory();
-  const { idDrink } = useParams();
-  const { idFood } = useParams();
+  const { setRecipeDetail, recipeDetail, titlePage, setFoodsApi, setDrinksApi,
+    setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, drinksApi, foodsApi, linkCopied,
+    setLinkCopied, favorited, handleShare, handleFavorite, getFavoriteLocalStorage,
+  } = useContext(RecipesContext);
+
   const [inProgressItems, setInProgressItems] = useState(false);
+  const { idDrink, idFood } = useParams();
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const type = pathname.slice('1', '6');
+  const SIX = 6;
 
   const handleProgress = () => {
     // Requisito 30 - Função que verifica se existe itens na chave inProgressRecipes no localStorage. Se não tiver, insere o primeiro item, respeitando se é um 'drink' ou 'food'. Se tiver, apenas acrescenta mais um item em 'cocktails' ou 'meals' se for drink ou food respectivamente.
@@ -43,22 +53,12 @@ function RecipeDetails() {
         }
       }
     }
-    const { pathname } = history.location;
     if (pathname === `/foods/${idFood}`) {
       history.push(`${idFood}/in-progress`);
     } else if (pathname === `/drinks/${idDrink}`) {
       history.push(`${idDrink}/in-progress`);
     }
   };
-
-  const { setRecipeDetail,
-    recipeDetail, titlePage, setFoodsApi, setDrinksApi,
-    setCategoryFoodsBtn,
-    setApiOfFood, setApiOfDrink, drinksApi, foodsApi } = useContext(RecipesContext);
-  /* const { idDrink } = useParams();
-  const { idFood } = useParams(); */
-  const { pathname } = useLocation();
-  const SIX = 6;
 
   useEffect(() => {
     const func = async () => {
@@ -76,7 +76,6 @@ function RecipeDetails() {
     func();
   }, [setFoodsApi, setDrinksApi,
     titlePage, setCategoryFoodsBtn, setApiOfFood, setApiOfDrink, pathname]);
-
   useEffect(() => {
     if (pathname.includes('foods')) {
       const callingFoodIdApi = async (idParam) => {
@@ -104,17 +103,16 @@ function RecipeDetails() {
           .some((key) => key === idDrink));
       }
     }
+    getFavoriteLocalStorage(idFood, idDrink);
+    setLinkCopied(false);
   }, []);
 
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
-
   const handleEmbed = () => {
     const ember = recipeDetail.map((recipe) => recipe.strYoutube.split('='));
     const numberToEmber = ember.map((a) => a[1]);
-    console.log(ember);
-    console.log(numberToEmber);
     return numberToEmber[0];
   };
 
@@ -132,18 +130,29 @@ function RecipeDetails() {
           <p data-testid="recipe-title">{ recipe.strDrink }</p>
           <p data-testid="recipe-category">{ recipe.strAlcoholic }</p>
           { ingredientsFilter[0].filter((ingredient) => ingredient !== null
-          && ingredient.length !== 0)
-            .map((ingredient, index) => (
-              <p
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                { ingredient }
-                {' '}
-                { recipe[`strMeasure${index + 1}`] }
-              </p>
-            )) }
+          && ingredient.length !== 0).map((ingredient, index) => (
+            <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              { ingredient }
+              {' '}
+              { recipe[`strMeasure${index + 1}`] }
+            </p>)) }
           <p data-testid="instructions">{ recipe.strInstructions }</p>
+          {/* Requisito 32 - Implementando 2 botões de "Compartilhar" e "Favoritar" */}
+          <div>
+            <button type="button" onClick={ () => handleShare(window.location.href) }>
+              <img src={ shareIcon } alt="share button" data-testid="share-btn" />
+            </button>
+            <button type="button" onClick={ () => handleFavorite(type, idFood, idDrink) }>
+              <img
+                // Requisito 35 - Que verifica se a receita está favoritada ou não. Caso favoritada o ícone é preto, caso contrário, é branco.
+                src={ favorited ? blackHeartIcon : whiteHeartIcon }
+                alt="favorite button"
+                data-testid="favorite-btn"
+              />
+            </button>
+          </div>
+          {/* Requisito 33 - Caso a pessoa tenha clicado no botão "Share" renderiza a mensagem abaixo */}
+          {linkCopied && <span>Link copied!</span>}
         </div>
       ))) : (
         <div>
@@ -160,15 +169,11 @@ function RecipeDetails() {
               { ingredientsFilter[0].filter((ingredient) => ingredient !== null
           && ingredient.length !== 0)
                 .map((ingredient, index) => (
-                  <p
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
+                  <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
                     { ingredient }
                     {' '}
                     { recipe[`strMeasure${index + 1}`] }
-                  </p>
-                )) }
+                  </p>)) }
               <p data-testid="instructions">{ recipe.strInstructions }</p>
               <iframe
                 src={ `https://www.youtube.com/embed/${handleEmbed()}` }
@@ -178,11 +183,28 @@ function RecipeDetails() {
                 title="video"
                 data-testid="video"
               />
-
+              {/* Requisito 32 - Implementando 2 botões de "Compartilhar" e "Favoritar" */}
+              <div>
+                <button type="button" onClick={ () => handleShare(window.location.href) }>
+                  <img src={ shareIcon } alt="share button" data-testid="share-btn" />
+                </button>
+                <button
+                  type="button"
+                  onClick={ () => handleFavorite(type, idFood, idDrink) }
+                >
+                  <img
+                    // Requisito 35 - Que verifica se a receita está favoritada ou não. Caso favoritada o ícone é preto, caso contrário, é branco.
+                    src={ favorited ? blackHeartIcon : whiteHeartIcon }
+                    alt="favorite button"
+                    data-testid="favorite-btn"
+                  />
+                </button>
+              </div>
+              {/* Requisito 33 - Caso a pessoa tenha clicado no botão "Share" renderiza a mensagem abaixo */}
+              {linkCopied && <span>Link copied!</span>}
             </div>
           ))}
-        </div>
-      )}
+        </div>)}
       <div className="testimonials">
         <div className="scroller">
           { pathname.includes('foods') ? (drinksApi.slice(0, SIX).map((d, index) => (
@@ -209,8 +231,7 @@ function RecipeDetails() {
               <p data-testid={ `${index}-recomendation-title` }>{ d.strMeal }</p>
               <p>{ d.strCategory }</p>
               <img width="60px" src={ d.strMealThumb } alt={ `${d.strMeal}-recipe` } />
-            </div>
-          ))) : null }
+            </div>))) : null }
           <button
             data-testid="start-recipe-btn"
             type="button"
