@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
-import referenceData from './mockDone';
 
 function DoneRecipes() {
   const { setTitlePage, filterDoneRecipes,
@@ -29,16 +28,18 @@ function DoneRecipes() {
   }, [share]);
 
   // Requisito 48 - Filter Done Recipes
+  const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  console.log(localDoneRecipes);
   useEffect(() => {
-    setMapDoneRecipe(referenceData);
+    setMapDoneRecipe(localDoneRecipes);
   }, [setMapDoneRecipe]);
   useEffect(() => {
     if (filterDoneRecipes === 'Food') {
-      setMapDoneRecipe(referenceData.filter((item) => item.type
+      setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'food'));
     }
     if (filterDoneRecipes === 'Drinks') {
-      setMapDoneRecipe(referenceData.filter((item) => item.type
+      setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'drink'));
     }
   }, [filterDoneRecipes, setMapDoneRecipe]);
@@ -51,7 +52,7 @@ function DoneRecipes() {
           data-testid="filter-by-all-btn"
           type="button"
           value="All"
-          onClick={ () => setMapDoneRecipe(referenceData) }
+          onClick={ () => setMapDoneRecipe(localDoneRecipes) }
         >
           All
         </button>
@@ -72,7 +73,7 @@ function DoneRecipes() {
           Drinks
         </button>
         {mapDoneRecipe.map((recipe, index) => (
-          <div key={ recipe.id }>
+          <div key={ (recipe.id * index) / 2 }>
             <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
               <img

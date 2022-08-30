@@ -6,7 +6,7 @@ import FoodsInProgress from '../components/FoodsInProgress';
 
 function RecipeInProgress() {
   const { idDrink, idFood } = useParams();
-  const { setRecipeInProgress } = useContext(RecipesContext);
+  const { setRecipeDetail } = useContext(RecipesContext);
   const { pathname } = useLocation();
   useEffect(() => {
     if (pathname.includes('foods')) {
@@ -15,16 +15,16 @@ function RecipeInProgress() {
         const responseFoodIdApi = await idFoodApi.json();
         return responseFoodIdApi.meals;
       };
-      callingFoodIdApi(idFood).then((response) => setRecipeInProgress(response));
+      callingFoodIdApi(idFood).then((response) => setRecipeDetail(response));
     } else {
       const callingDrinksIdApi = async (idParam) => {
         const idDrinkApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idParam}`);
         const responseDrinksApi = await idDrinkApi.json();
         return responseDrinksApi.drinks;
       };
-      callingDrinksIdApi(idDrink).then((response) => setRecipeInProgress(response));
+      callingDrinksIdApi(idDrink).then((response) => setRecipeDetail(response));
     }
-  }, [idDrink, idFood, setRecipeInProgress, pathname]);
+  }, [idDrink, idFood, setRecipeDetail, pathname]);
   return (
     <div>
       <h1>RecipeInProgress</h1>

@@ -27,7 +27,6 @@ function RecipesProvider({ children }) {
   const [radioInput, setRadioInput] = useState('');
   const [searchFoodDrink, setSearchFoodDrink] = useState();
   const [recipeDetail, setRecipeDetail] = useState([]);
-  const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [linkCopied, setLinkCopied] = useState(false);
   const [favorited, setFavorited] = useState(false);
   useEffect(() => {
@@ -69,32 +68,30 @@ function RecipesProvider({ children }) {
       category: recipeDetail[0].strCategory,
       alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
       name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
-      image: type === 'foods' ? (
-        recipeDetail[0].strMealThumb) : (recipeDetail[0].strDrinkThumb),
+      image: type === 'foods'
+        ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
     }]));
   };
-  const addNewFavorite = (type, favoritesLocalStorage) => {
+  const addNewFavorite = (type, favoritesLocalStorage, idFood, idDrink) => {
     localStorage.setItem('favoriteRecipes', JSON.stringify([
       ...favoritesLocalStorage,
-      { id: recipeDetail[0].idMeal ? recipeDetail[0].idMeal : recipeDetail[0].idDrink,
+      { id: type === 'foods' ? idFood : idDrink,
         type: type === 'foods' ? 'food' : 'drink',
         nationality: recipeDetail[0].strArea ? recipeDetail[0].strArea : '',
         category: recipeDetail[0].strCategory,
         alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
         name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
-        image: type === 'foods' ? (
-          recipeDetail[0].strMealThumb) : (recipeDetail[0].strDrinkThumb),
+        image: type === 'foods'
+          ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
       }]));
   };
   // Requisito 34 - Função que salva no localStorage o primeiro favorito ou acrescenta mais um favorito na lista.
   const handleFavorite = (type, idFood, idDrink) => {
     const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    // Requisito 36 - Caso a receita já esteja favoritada, executa o setItem para deixar no localStorage todas as receitas que não forem essa. Ou seja, remove apenas a receita clicada do localStorage. E as receitas restantes são deixadas no localStorage por passarem pelo filtro.
     if (favorited === true) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(
         favoritesLocalStorage.filter((item) => (item.id !== idFood ? idFood : idDrink)),
       ));
-      // Requisito 36 - Além de remover do localStorage eu troco a imagem para o coração vazio.
       setFavorited(false);
     }
     // Requisito 36 - Caso a receita não esteja favoritada, colocarei ela na lista do localStorage e trocarei a foto para o coração preenchido.
@@ -103,7 +100,10 @@ function RecipesProvider({ children }) {
       // Se não tiver nada salvo na lista 'favoriteRecipes' vai inserir o primeiro item.
       if (favoritesLocalStorage === null) { addFirstFavorite(type); }
       // Caso já tenha itens na lista 'favoriteRecipes', mantém o que já tem e acrescenta um novo.
-      if (favoritesLocalStorage !== null) { addNewFavorite(type, favoritesLocalStorage); }
+      if (favoritesLocalStorage !== null) {
+        addNewFavorite(type, favoritesLocalStorage,
+          idFood, idDrink);
+      }
     }
   };
 
@@ -114,6 +114,48 @@ function RecipesProvider({ children }) {
       const boolean = favoritesLocalStorage
         .some((item) => (item.id === idFood ? idFood : idDrink));
       if (boolean === true) { setFavorited(true); }
+    }
+  };
+
+  const addNewDoneRecipe = ({ type, tags, data },
+    favoritesLocalStorage) => {
+    console.log(recipeDetail[0]);
+    localStorage.setItem('doneRecipes', JSON.stringify([
+      ...favoritesLocalStorage,
+      { id: type === 'foods' ? recipeDetail[0].idMeal : recipeDetail[0].idDrink,
+        type: type === 'foods' ? 'food' : 'drink',
+        nationality: recipeDetail[0].strArea ? recipeDetail[0].strArea : '',
+        category: recipeDetail[0].strCategory,
+        alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
+        name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
+        image: type === 'foods'
+          ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
+        doneDate: data,
+        tags,
+      }]));
+  };
+
+  const addFirstDoneRecipe = ({ type, tags, data }) => {
+    console.log(recipeDetail[0]);
+    localStorage.setItem('doneRecipes', JSON.stringify([{
+      id: type === 'foods' ? recipeDetail[0].idMeal : recipeDetail[0].idDrink,
+      type: type === 'foods' ? 'food' : 'drink',
+      nationality: recipeDetail[0].strArea ? recipeDetail[0].strArea : '',
+      category: recipeDetail[0].strCategory,
+      alcoholicOrNot: type === 'foods' ? '' : recipeDetail[0].strAlcoholic,
+      name: type === 'foods' ? recipeDetail[0].strMeal : recipeDetail[0].strDrink,
+      image: type === 'foods'
+        ? recipeDetail[0].strMealThumb : recipeDetail[0].strDrinkThumb,
+      doneDate: data,
+      tags,
+    }]));
+  };
+
+  const handleDoneRecipe = (obj) => {
+    const doneRecipesLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesLocalStorage === null) { addFirstDoneRecipe(obj); }
+    if (doneRecipesLocalStorage !== null) {
+      addNewDoneRecipe(obj, doneRecipesLocalStorage);
     }
   };
 
@@ -137,8 +179,6 @@ function RecipesProvider({ children }) {
     titlePage,
     radioInput,
     searchFoodDrink,
-    recipeInProgress,
-    setRecipeInProgress,
     setApiOfDrink,
     setApiOfFood,
     setClickOne,
@@ -164,6 +204,8 @@ function RecipesProvider({ children }) {
     linkCopied,
     setLinkCopied,
     favorited,
+    setFavorited,
+    handleDoneRecipe,
     handleShare,
     handleFavorite,
     getFavoriteLocalStorage,
