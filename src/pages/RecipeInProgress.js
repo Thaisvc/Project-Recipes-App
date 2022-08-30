@@ -5,8 +5,7 @@ import DrinksInProgress from '../components/DrinksInProgress';
 import FoodsInProgress from '../components/FoodsInProgress';
 
 function RecipeInProgress() {
-  const { idDrinks } = useParams();
-  const { idFoods } = useParams();
+  const { idDrink, idFood } = useParams();
   const { setRecipeInProgress } = useContext(RecipesContext);
   const { pathname } = useLocation();
   useEffect(() => {
@@ -16,17 +15,16 @@ function RecipeInProgress() {
         const responseFoodIdApi = await idFoodApi.json();
         return responseFoodIdApi.meals;
       };
-      callingFoodIdApi(idFoods).then((response) => setRecipeInProgress(response));
+      callingFoodIdApi(idFood).then((response) => setRecipeInProgress(response));
     } else {
       const callingDrinksIdApi = async (idParam) => {
-        const idDrinksApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idParam}`);
-        const responseDrinksApi = await idDrinksApi.json();
+        const idDrinkApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idParam}`);
+        const responseDrinksApi = await idDrinkApi.json();
         return responseDrinksApi.drinks;
       };
-      callingDrinksIdApi(idDrinks).then((response) => setRecipeInProgress(response));
+      callingDrinksIdApi(idDrink).then((response) => setRecipeInProgress(response));
     }
-  }, [idDrinks, idFoods, setRecipeInProgress, pathname]);
-  // console.log(recipeInProgress);
+  }, [idDrink, idFood, setRecipeInProgress, pathname]);
   return (
     <div>
       <h1>RecipeInProgress</h1>
