@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import apiFood from '../fetchApi/apiFood';
@@ -9,8 +9,40 @@ function RecipeDetails() {
   const history = useHistory();
   const { idDrink } = useParams();
   const { idFood } = useParams();
+  const [inProgressItems, setInProgressItems] = useState(false);
 
-  const handlerprogres = () => {
+  const handleProgress = () => {
+    // Requisito 30 - Função que verifica se existe itens na chave inProgressRecipes no localStorage. Se não tiver, insere o primeiro item, respeitando se é um 'drink' ou 'food'. Se tiver, apenas acrescenta mais um item em 'cocktails' ou 'meals' se for drink ou food respectivamente.
+    const keyInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (keyInProgressRecipes === null) {
+      if (idDrink) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify(
+          { cocktails: { [idDrink]: [] }, meals: { } },
+        ));
+      }
+      if (idFood) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify(
+          { cocktails: { }, meals: { [idFood]: [] } },
+        ));
+      }
+      if (keyInProgressRecipes !== null) {
+        const { cocktails, meals } = keyInProgressRecipes;
+        if (idDrink) {
+          localStorage.setItem('inProgressRecipes', JSON.stringify(
+            { cocktails: { ...cocktails, [idDrink]: [] },
+              meals: { ...meals },
+            },
+          ));
+        }
+        if (idFood) {
+          localStorage.setItem('inProgressRecipes', JSON.stringify(
+            { cocktails: { ...cocktails },
+              meals: { ...meals, [idFood]: [] },
+            },
+          ));
+        }
+      }
+    }
     const { pathname } = history.location;
     if (pathname === `/foods/${idFood}`) {
       history.push(`${idFood}/in-progress`);
@@ -53,6 +85,12 @@ function RecipeDetails() {
         return responseFoodIdApi.meals;
       };
       callingFoodIdApi(idFood).then((response) => setRecipeDetail(response));
+      // Requisito 30 - Verifica se a chave 'inProgressRecipes' no localStorage contém itens. Se tiver, pegamos a 'keys' do objeto 'meals' e no 'cocktails' pois eles são ID's de receitas em progresso. Se a ID for igual da receita da tela "RecipeDetails", o botão renderiza "Continue Recipe", demonstrando que a receita já havia sido iniciada. Se não tiver sido iniciada, ela não está no localStorage e o botão renderiza "Start Recipe".
+      const keyInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (keyInProgressRecipes !== null) {
+        setInProgressItems(Object.keys(keyInProgressRecipes.meals)
+          .some((key) => key === idFood));
+      }
     } else {
       const callingDrinksIdApi = async (idParam) => {
         const idDrinksApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idParam}`);
@@ -60,6 +98,11 @@ function RecipeDetails() {
         return responseDrinksApi.drinks;
       };
       callingDrinksIdApi(idDrink).then((response) => setRecipeDetail(response));
+      const keyInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (keyInProgressRecipes !== null) {
+        setInProgressItems(Object.keys(keyInProgressRecipes.cocktails)
+          .some((key) => key === idDrink));
+      }
     }
   }, []);
 
@@ -74,8 +117,6 @@ function RecipeDetails() {
     console.log(numberToEmber);
     return numberToEmber[0];
   };
-
-  console.log(recipeDetail);
 
   return (
     <div>
@@ -174,9 +215,10 @@ function RecipeDetails() {
             data-testid="start-recipe-btn"
             type="button"
             className="start_recipe"
-            onClick={ handlerprogres }
+            onClick={ handleProgress }
           >
-            Start Recipe
+            {/* Requisito 30 - InprogressItems é o estado que recebeu o valor boolean true ou false na verificação da useEffect, para saber se o ID da receita da tela de RecipeDetails é uma receita que foi iniciada ou não. */}
+            { inProgressItems ? 'Continue Recipe' : 'Start Recipe' }
           </button>
         </div>
       </div>
