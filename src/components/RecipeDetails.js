@@ -104,7 +104,7 @@ function RecipeDetails() {
           .some((key) => key === idDrink));
       }
     }
-  }, []);
+  }, [idDrink, idFood, pathname, setRecipeDetail]);
 
   const ingredientsFilter = recipeDetail.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))

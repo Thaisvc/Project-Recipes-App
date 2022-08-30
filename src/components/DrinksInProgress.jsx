@@ -1,13 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteIcon from '../images/blackHeartIcon.svg';
+import { getItemStorageProgressRecipe, setCheckbox } from '../services/localStore';
 
 function DrinksInProgress() {
+  const { idDrinks } = useParams();
   const { recipeInProgress } = useContext(RecipesContext);
   const ingredientsFilter = recipeInProgress.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
     .map((ingredient) => recipe[ingredient]));
+  const [ingredietCheckbox, setIngredietCheckbox] = useState([]);
+  const [local, setLocal] = useState([]);
+  useEffect(() => {
+    const verificarLocalStorage = () => {
+      const verificarLocal = getItemStorageProgressRecipe('inProgressRecipes');
+      setLocal(verificarLocal);
+    };
+    verificarLocalStorage();
+  }, [ingredietCheckbox]);
+  const addItemStore = (value) => {
+    const verificLocal = getItemStorageProgressRecipe('inProgressRecipes');
+    const objStore = { meals: {
+      ...verificLocal.meals,
+    },
+    cocktails: { ...verificLocal.cocktails,
+      [idDrinks]: value } };
+    setCheckbox('inProgressRecipes', objStore);
+  };
   return (
     <div>
       {recipeInProgress.map((recipe) => (
@@ -26,6 +47,13 @@ function DrinksInProgress() {
               <p key={ index } data-testid={ `${index}-ingredient-step` }>
                 <input
                   type="checkbox"
+                  value={ ingredient }
+                  onChange={ ({ target: { value } }) => {
+                    setIngredietCheckbox([...ingredietCheckbox, value]);
+                    addItemStore([...ingredietCheckbox, value]);
+                  } }
+                  checked={ (local.cocktails[idDrinks] !== undefined)
+                    && local.cocktails[idDrinks].some((item) => item === ingredient) }
                 />
                 {ingredient}
               </p>

@@ -7,7 +7,7 @@ import FoodsInProgress from '../components/FoodsInProgress';
 function RecipeInProgress() {
   const { idDrinks } = useParams();
   const { idFoods } = useParams();
-  const { recipeInProgress, setRecipeInProgress } = useContext(RecipesContext);
+  const { setRecipeInProgress } = useContext(RecipesContext);
   const { pathname } = useLocation();
   useEffect(() => {
     if (pathname.includes('foods')) {
@@ -25,8 +25,8 @@ function RecipeInProgress() {
       };
       callingDrinksIdApi(idDrinks).then((response) => setRecipeInProgress(response));
     }
-  }, []);
-  console.log(recipeInProgress);
+  }, [idDrinks, idFoods, setRecipeInProgress, pathname]);
+  // console.log(recipeInProgress);
   return (
     <div>
       <h1>RecipeInProgress</h1>
