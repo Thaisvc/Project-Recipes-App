@@ -1,37 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import clipboard from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
-import FavoriteIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getItemStorageProgressRecipe, setCheckbox } from '../services/localStore';
 
 function DrinksInProgress() {
-  const { idDrinks } = useParams();
-  const { recipeInProgress } = useContext(RecipesContext);
-  const ingredientsFilter = recipeInProgress.map((recipe) => Object
-    .keys(recipe).filter((k) => k.includes('strIngredient'))
-    .map((ingredient) => recipe[ingredient]));
   const [ingredietCheckbox, setIngredietCheckbox] = useState([]);
   const [local, setLocal] = useState([]);
-  useEffect(() => {
-    const verificarLocalStorage = () => {
-      const verificarLocal = getItemStorageProgressRecipe('inProgressRecipes');
-      setLocal(verificarLocal);
-    };
-    verificarLocalStorage();
-  }, [ingredietCheckbox]);
+  const [isMessageOn, setIsMessageOn] = useState(false);
+  const { idDrink, idFood } = useParams();
+  const { recipeDetail, favorited, handleFavorite,
+    getFavoriteLocalStorage } = useContext(RecipesContext);
+  const ingredientsFilter = recipeDetail.map((recipe) => Object
+    .keys(recipe).filter((k) => k.includes('strIngredient'))
+    .map((ingredient) => recipe[ingredient]));
+  const { pathname } = useLocation();
+  const type = pathname.slice('1', '6');
+
   const addItemStore = (value) => {
     const verificLocal = getItemStorageProgressRecipe('inProgressRecipes');
     const objStore = { meals: {
       ...verificLocal.meals,
     },
     cocktails: { ...verificLocal.cocktails,
-      [idDrinks]: value } };
+      [idDrink]: value } };
     setCheckbox('inProgressRecipes', objStore);
   };
+
+  useEffect(() => {
+    const verificarLocalStorage = () => {
+      const verificarLocal = getItemStorageProgressRecipe('inProgressRecipes');
+      setLocal(verificarLocal);
+    };
+    verificarLocalStorage();
+    getFavoriteLocalStorage(idFood, idDrink);
+  }, [ingredietCheckbox, getFavoriteLocalStorage,
+    idFood, idDrink]);
+
   return (
     <div>
-      {recipeInProgress.map((recipe) => (
+      {recipeDetail.map((recipe) => (
         <div key={ recipe.idDrink }>
           <img
             alt={ `${recipe.strDrink}-recipe` }
@@ -52,19 +63,38 @@ function DrinksInProgress() {
                     setIngredietCheckbox([...ingredietCheckbox, value]);
                     addItemStore([...ingredietCheckbox, value]);
                   } }
-                  checked={ (local.cocktails[idDrinks] !== undefined)
-                    && local.cocktails[idDrinks].some((item) => item === ingredient) }
+                  checked={ (local.cocktails[idDrink] !== undefined)
+                    && local.cocktails[idDrink].some((item) => item === ingredient) }
                 />
                 {ingredient}
               </p>
             )) }
           <p data-testid="instructions">{ recipe.strInstructions }</p>
-          <button type="button" data-testid="favorite-btn">
-            <img src={ FavoriteIcon } alt="favorite-icon" />
+          {/* Favoritar */}
+          <button
+            type="button"
+            onClick={ () => {
+              handleFavorite(type, idFood, idDrink);
+            } }
+          >
+            <img
+              src={ favorited ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite button"
+              data-testid="favorite-btn"
+            />
           </button>
-          <button type="button" data-testid="share-btn">
+          {/* Compartilhar */}
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              clipboard(`http://localhost:3000/drinks/${recipe.idDrink}`);
+              setIsMessageOn(!isMessageOn);
+            } }
+          >
             <img src={ ShareIcon } alt="share-icon" />
           </button>
+          <span>{ isMessageOn && 'Link copied!' }</span>
           <button type="button" data-testid="finish-recipe-btn">Finish Recipe</button>
         </div>
       ))}
