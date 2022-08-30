@@ -6,7 +6,7 @@ import FavoriteIcon from '../images/blackHeartIcon.svg';
 import { getItemStorageProgressRecipe, setCheckbox } from '../services/localStore';
 
 function FoodsInProgress() {
-  const { idFoods } = useParams();
+  const { idFood } = useParams();
   const { recipeInProgress } = useContext(RecipesContext);
   const ingredientsFilter = recipeInProgress.map((recipe) => Object
     .keys(recipe).filter((k) => k.includes('strIngredient'))
@@ -27,7 +27,7 @@ function FoodsInProgress() {
     if (verificLocal) {
       const objStore = { meals: {
         ...verificLocal.meals,
-        [idFoods]: value,
+        [idFood]: value,
       },
       cocktails: { ...verificLocal.cocktails } };
       console.log(objStore);
@@ -57,8 +57,8 @@ function FoodsInProgress() {
                     addItemStore([...ingredietCheckbox, value]);
                     setIngredietCheckbox([...ingredietCheckbox, value]);
                   } }
-                  checked={ (local.meals[idFoods] !== undefined)
-                    && local.meals[idFoods]
+                  checked={ (local.meals[idFood] !== undefined)
+                    && local.meals[idFood]
                       .some((item) => item === ingredient) }
                 />
                 {ingredient}
