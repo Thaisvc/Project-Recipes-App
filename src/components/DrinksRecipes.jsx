@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import categoryDrinksApi from '../fetchApi/categoryDrinksApi';
+import './RecipesFoodDrink.css';
 
 function DrinksRecipes() {
   const { drinksApi, setDrinksApi,
@@ -47,8 +48,9 @@ function DrinksRecipes() {
   };
 
   return (
-    <div>
+    <div className="contener">
       <button
+        className="button_categories"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => { setDrinksApi(apiOfDrink); setClickOne(true); } }
@@ -57,6 +59,7 @@ function DrinksRecipes() {
       </button>
       {categoryDrinks.map((c) => (
         <button
+          className="button_categories"
           data-testid={ `${c}-category-filter` }
           key={ c }
           type="button"
@@ -67,9 +70,10 @@ function DrinksRecipes() {
         </button>
       ))}
       {drinksApi.slice(0, minArray).map((drink, index) => (
-        <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
+        <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink } className="card">
           <div data-testid={ `${index}-recipe-card` }>
             <img
+              className="image_card"
               src={ drink.strDrinkThumb }
               alt={ drink.strDrink }
               width="100px"
