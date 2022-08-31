@@ -1,0 +1,26 @@
+.profile-buttons {
+  /* margin-top: 100px; */
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  position: absolute;
+  left: 16px;
+}
+
+.profile-buttons > a > button {
+  height: 60px;
+}
+
+.button-logout, .button-done, .button-favorite {
+  width: 329px;
+  height: 53px;
+  background-color: #C4C4C4;;
+  font-size: 20px;
+}
+
+.email-user {
+  margin-bottom: 30px;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 55px;
+}
