@@ -76,7 +76,7 @@ function DrinksRecipes() {
               className="image_card"
               src={ drink.strDrinkThumb }
               alt={ drink.strDrink }
-              width="100px"
+              width="155px"
               data-testid={ `${index}-card-img` }
             />
             <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
