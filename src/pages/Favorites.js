@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../css/Favorites.css';
 
 function Favorites() {
   const { setTitlePage, handleShare, linkCopied } = useContext(RecipesContext);
@@ -25,43 +26,60 @@ function Favorites() {
   };
 
   return (
-    <div>
+    <div className="page-favorites">
       <Header />
       {/* Requisito 50 - Renderizando os elementos necessários na tela com seus respectivos data-testid */}
-      <button type="button" data-testid="filter-by-all-btn">All</button>
-      <button type="button" data-testid="filter-by-food-btn">Food</button>
-      <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
-      { favoriteItems.map((item, index) => (
-        <div key={ index }>
-          <img src={ item.image } alt="" data-testid={ `${index}-horizontal-image` } />
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            {/* Requisito 51 - Apenas adaptei o que seria renderizado para esse data-testid */}
-            { `${item.nationality} - ${item.category}` }
-            {/* Requisito 52 - Apenas inseri o parágrafo de alcoholicOrNot caso seja um drink */}
-            { item.alcoholicOrNot && <p>{item.alcoholicOrNot}</p> }
-          </p>
-          <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
-          <div>
-            {/* Requisito 53 - Utilizei a funçao handleShare que estava no RecipesProvider para copiar o link da receita e renderizar o "Link copied!" */}
-            <button type="button" onClick={ () => handleShare(`http://localhost:3000/${item.type}s/${item.id}`) }>
-              <img
-                src={ shareIcon }
-                alt="share button"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
-            {/* Requisito 54 - Ao clicar no botão é executada a função 'unfavorite' com o id específico da receita que deseja desfavoritar */}
-            <button type="button" onClick={ () => unfavorite(item.id) }>
-              <img
-                src={ blackHeartIcon }
-                alt="favorite button"
-                data-testid={ `${index}-horizontal-favorite-btn` }
-              />
-            </button>
+      <div className="btns-favorites">
+        <button type="button" data-testid="filter-by-all-btn">All</button>
+        <button type="button" data-testid="filter-by-food-btn">Food</button>
+        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+      </div>
+      <section className="main-favorites">
+        { favoriteItems.map((item, index) => (
+          <div key={ index } className="recipe-favorites">
+            <img
+              src={ item.image }
+              alt={ item.name }
+              width="150px"
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {/* Requisito 51 - Apenas adaptei o que seria renderizado para esse data-testid */}
+              { `${item.nationality} - ${item.category}` }
+              {/* Requisito 52 - Apenas inseri o parágrafo de alcoholicOrNot caso seja um drink */}
+              { item.alcoholicOrNot && <p>{item.alcoholicOrNot}</p> }
+            </p>
+            <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+            <div className="btn-share-fav">
+              {/* Requisito 53 - Utilizei a funçao handleShare que estava no RecipesProvider para copiar o link da receita e renderizar o "Link copied!" */}
+              <button
+                type="button"
+                className="share-btn"
+                onClick={ () => handleShare(`http://localhost:3000/${item.type}s/${item.id}`) }
+              >
+                <img
+                  src={ shareIcon }
+                  alt="share button"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+              {/* Requisito 54 - Ao clicar no botão é executada a função 'unfavorite' com o id específico da receita que deseja desfavoritar */}
+              <button
+                className="favorite-btn"
+                type="button"
+                onClick={ () => unfavorite(item.id) }
+              >
+                <img
+                  src={ blackHeartIcon }
+                  alt="favorite button"
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                />
+              </button>
+            </div>
+            {linkCopied && <span>Link copied!</span>}
           </div>
-          {linkCopied && <span>Link copied!</span>}
-        </div>
-      ))}
+        ))}
+      </section>
     </div>
   );
 }
