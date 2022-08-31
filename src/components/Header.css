@@ -1,10 +1,10 @@
 .contener_header {
-    display: flex;
-    justify-content: space-around;
-   background-color: #ec4f37;
-   align-items: center;
+  align-items: center;
+  background-color: #ec4f37;
+  display: flex;
+  justify-content: space-around;
 }
 
-.img_header{
-    background-color: #ec4f37;
+.img_header {
+  background-color: #ec4f37;
 }
