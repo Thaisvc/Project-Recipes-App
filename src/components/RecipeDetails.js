@@ -117,7 +117,7 @@ function RecipeDetails() {
   return (
     <div className="recipedetails-fatherdiv">
       <div className="h1-div-header">
-        <h1>RecipeDetails</h1>
+        <h1>Recipe Details</h1>
       </div>
       { pathname.includes('drinks') ? (recipeDetail.map((recipe) => (
         <div
@@ -167,16 +167,34 @@ function RecipeDetails() {
                 data-testid="recipe-photo"
                 width="400px"
               />
-              <p data-testid="recipe-title">{ recipe.strMeal }</p>
-              <p data-testid="recipe-category">{ recipe.strCategory }</p>
-              { ingredientsFilter[0].filter((ingredient) => ingredient !== null
+              <p
+                data-testid="recipe-title"
+                className="first-p-class"
+              >
+                { recipe.strMeal }
+              </p>
+              <p
+                data-testid="recipe-category"
+                className="recipe-category-class"
+              >
+                { recipe.strCategory }
+              </p>
+              <h2>Ingredients:</h2>
+              <div className="ingredients-card">
+                { ingredientsFilter[0].filter((ingredient) => ingredient !== null
           && ingredient.length !== 0)
-                .map((ingredient, index) => (
-                  <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                    { ingredient }
-                    {' '}
-                    { recipe[`strMeasure${index + 1}`] }
-                  </p>)) }
+                  .map((ingredient, index) => (
+                    <p
+                      key={ index }
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                    >
+                      -
+                      {' '}
+                      { ingredient }
+                      {' '}
+                      { recipe[`strMeasure${index + 1}`] }
+                    </p>)) }
+              </div>
               <p data-testid="instructions">{ recipe.strInstructions }</p>
               <iframe
                 src={ `https://www.youtube.com/embed/${handleEmbed()}` }
@@ -238,7 +256,6 @@ function RecipeDetails() {
             className="start_recipe"
             onClick={ handleProgress }
           >
-            {/* Requisito 30 - InprogressItems é o estado que recebeu o valor boolean true ou false na verificação da useEffect, para saber se o ID da receita da tela de RecipeDetails é uma receita que foi iniciada ou não. */}
             { inProgressItems ? 'Continue Recipe' : 'Start Recipe' }
           </button>
         </div>
