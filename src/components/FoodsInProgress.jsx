@@ -59,12 +59,14 @@ function FoodsInProgress() {
     <div className="page-recipeInProgress">
       {recipeDetail.map((recipe) => (
         <div key={ recipe.idMeal }>
-          <img
-            alt={ `${recipe.strMeal}-recipe` }
-            src={ recipe.strMealThumb }
-            data-testid="recipe-photo"
-            width="400px"
-          />
+          <div className="div-img">
+            <img
+              alt={ `${recipe.strMeal}-recipe` }
+              src={ recipe.strMealThumb }
+              data-testid="recipe-photo"
+              width="400px"
+            />
+          </div>
           <h3 data-testid="recipe-title">{ recipe.strMeal }</h3>
           <p
             data-testid="recipe-category"
