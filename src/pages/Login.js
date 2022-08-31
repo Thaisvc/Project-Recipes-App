@@ -17,7 +17,6 @@ function Login() {
     localStorage.setItem('user', JSON.stringify(objToLocal));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    console.log('clicou');
     history.push('/foods');
   };
 
@@ -33,7 +32,7 @@ function Login() {
             className="email-input-class"
             data-testid="email-input"
             type="email"
-            placeholder="email"
+            placeholder="*Email (exemplo@gmail.com)"
             id="email-id"
             onChange={ (event) => setEmail(event.target.value) }
           />
@@ -44,7 +43,7 @@ function Login() {
             className="pass-input-class"
             data-testid="password-input"
             type="password"
-            placeholder="password"
+            placeholder="*Password (More than six letters)"
             id="password-id"
             onChange={ (event) => setPassword(event.target.value) }
           />

@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import DrinksInProgress from '../components/DrinksInProgress';
 import FoodsInProgress from '../components/FoodsInProgress';
+import '../css/RecipeInProgress.css';
 
 function RecipeInProgress() {
   const { idDrink, idFood } = useParams();
@@ -27,7 +28,7 @@ function RecipeInProgress() {
   }, [idDrink, idFood, setRecipeDetail, pathname]);
   return (
     <div>
-      <h1>RecipeInProgress</h1>
+      <h1 className="title-recipeInProgress">Recipe In Progress</h1>
       { pathname.includes('drinks') ? (
         <DrinksInProgress />
       ) : (

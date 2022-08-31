@@ -56,22 +56,30 @@ function FoodsInProgress() {
 
   const data = new Date();
   return (
-    <div>
+    <div className="page-recipeInProgress">
       {recipeDetail.map((recipe) => (
         <div key={ recipe.idMeal }>
-          <img
-            alt={ `${recipe.strMeal}-recipe` }
-            src={ recipe.strMealThumb }
-            data-testid="recipe-photo"
-            width="400px"
-          />
+          <div className="div-img">
+            <img
+              alt={ `${recipe.strMeal}-recipe` }
+              src={ recipe.strMealThumb }
+              data-testid="recipe-photo"
+              width="400px"
+            />
+          </div>
           <h3 data-testid="recipe-title">{ recipe.strMeal }</h3>
-          <p data-testid="recipe-category">{ recipe.strCategory }</p>
+          <p
+            data-testid="recipe-category"
+            className="p-progress-category"
+          >
+            { recipe.strCategory }
+          </p>
           { ingredientsFilter[0].filter((ingredient) => ingredient !== null
           && ingredient.length !== 0)
             .map((ingredient, index) => (
               <p key={ index } data-testid={ `${index}-ingredient-step` }>
                 <input
+                  className="checkbox-ingredient"
                   type="checkbox"
                   value={ ingredient }
                   onChange={ ({ target: { value } }) => {
@@ -86,48 +94,58 @@ function FoodsInProgress() {
                 </span>
               </p>
             )) }
-          <p data-testid="instructions">{ recipe.strInstructions }</p>
-          {/* Favoritar */}
-          <button
-            type="button"
-            onClick={ () => {
-              handleFavorite(type, idFood, idDrink);
-            } }
+          <p
+            data-testid="instructions"
+            className="p-progress-instructions"
           >
-            <img
-              src={ favorited ? blackHeartIcon : whiteHeartIcon }
-              alt="favorite button"
-              data-testid="favorite-btn"
-            />
-          </button>
-          {/* Compartilhar */}
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ () => {
-              clipboard(`http://localhost:3000/foods/${recipe.idMeal}`);
-              setIsMessageOn(!isMessageOn);
-            } }
-          >
-            <img src={ ShareIcon } alt="share-icon" />
-          </button>
+            { recipe.strInstructions }
+          </p>
           <span>{ isMessageOn && 'Link copied!' }</span>
-          <Link to="/done-recipes">
+          <div className="div-btns">
+            {/* Favoritar */}
             <button
               type="button"
-              data-testid="finish-recipe-btn"
-              disabled={ (ingredientsFilter[0]
-                .filter((ingredient) => ingredient !== null
-              && ingredient.length !== 0).length !== count - 1) }
-              onClick={ () => handleDoneRecipe({ type: 'foods',
-                tags: ingredientsFilter[0]
-                  .filter((ingredient) => ingredient !== null
-                && ingredient.length !== 0),
-                data: data.toLocaleDateString() }) }
+              onClick={ () => {
+                handleFavorite(type, idFood, idDrink);
+              } }
+              className="favorite-btn"
             >
-              Finish Recipe
+              <img
+                src={ favorited ? blackHeartIcon : whiteHeartIcon }
+                alt="favorite button"
+                data-testid="favorite-btn"
+              />
             </button>
-          </Link>
+            {/* Compartilhar */}
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ () => {
+                clipboard(`http://localhost:3000/foods/${recipe.idMeal}`);
+                setIsMessageOn(!isMessageOn);
+              } }
+              className="share-btn"
+            >
+              <img src={ ShareIcon } alt="share-icon" />
+            </button>
+            <Link to="/done-recipes">
+              <button
+                className="finish-btn"
+                type="button"
+                data-testid="finish-recipe-btn"
+                disabled={ (ingredientsFilter[0]
+                  .filter((ingredient) => ingredient !== null
+              && ingredient.length !== 0).length !== count - 1) }
+                onClick={ () => handleDoneRecipe({ type: 'foods',
+                  tags: ingredientsFilter[0]
+                    .filter((ingredient) => ingredient !== null
+                && ingredient.length !== 0),
+                  data: data.toLocaleDateString() }) }
+              >
+                Finish Recipe
+              </button>
+            </Link>
+          </div>
         </div>
       ))}
     </div>
