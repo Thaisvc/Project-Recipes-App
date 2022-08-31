@@ -1,12 +1,12 @@
 .contener_header {
-    display: flex;
-    justify-content: space-between;
+   display: flex;
+   justify-content: space-between;
    background-color: #ec4f37;
    align-items: center;
    height: 55px;
    padding: 20px
 }
 
-.img_header{
-    background-color: #ec4f37;
+.img_header {
+  background-color: #ec4f37;
 }
