@@ -1,8 +1,10 @@
 .contener_header {
-  align-items: center;
-  background-color: #ec4f37;
-  display: flex;
-  justify-content: space-around;
+   display: flex;
+   justify-content: space-between;
+   background-color: #ec4f37;
+   align-items: center;
+   height: 55px;
+   padding: 20px
 }
 
 .img_header {
