@@ -1,0 +1,76 @@
+.page-done-recipes {
+  background-color: rgba(182, 182, 182, 0.322);
+  min-height: 100vh;
+}
+
+.btns-done-filter {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.btns-done-filter button {
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: 800;
+  height: 50px;
+  width: 150px;
+}
+
+.btns-done-filter button:hover {
+  background-color: #ec4f37;
+  box-shadow: -3px 3px rgb(94, 94, 94);
+  color: aliceblue;
+}
+
+.main-done-recipe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+  padding-bottom: 15px;
+}
+
+.recipe-done {
+  background-color: rgb(182, 183, 184);
+  border-radius: 5px;
+  box-shadow: -3px 3px rgb(94, 94, 94);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px;
+  width: 45%;
+}
+
+.recipe-done h3 {
+  color: #ec4f37;
+  font-weight: 800;
+  padding-bottom: 5px;
+}
+
+.recipe-done h3:hover {
+  color: #000000b0;
+}
+
+.recipe-done ul {
+  margin-left: 15px;
+  padding: 2px;
+}
+
+.recipe-done .share-btn {
+  background-color: #0019fc88;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 50px;
+  width: 100px;
+}
+
+.recipe-done .share-btn:hover {
+  background-color: rgba(61, 61, 61, 0.473);
+  box-shadow: -3px 3px #0019fc88;
+}
