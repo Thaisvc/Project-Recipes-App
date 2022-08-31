@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
-import referenceData from './mockDone';
 
 function DoneRecipes() {
   const { setTitlePage, filterDoneRecipes,
@@ -12,6 +11,7 @@ function DoneRecipes() {
 
   const [isMessageOn, setIsMessageOn] = useState(false);
   const [share, setShare] = useState({});
+  const [DoneRecipeOriginal, setDoneRecipeOriginal] = useState([]);
   useEffect(() => {
     setTitlePage('Done Recipes');
   }, [setTitlePage]);
@@ -30,15 +30,18 @@ function DoneRecipes() {
 
   // Requisito 48 - Filter Done Recipes
   useEffect(() => {
-    setMapDoneRecipe(referenceData);
+    const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    setMapDoneRecipe(localDoneRecipes);
+    setDoneRecipeOriginal(localDoneRecipes);
   }, [setMapDoneRecipe]);
   useEffect(() => {
-    if (filterDoneRecipes === 'Food') {
-      setMapDoneRecipe(referenceData.filter((item) => item.type
+    const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (filterDoneRecipes === 'Food' && localDoneRecipes !== null) {
+      setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'food'));
     }
-    if (filterDoneRecipes === 'Drinks') {
-      setMapDoneRecipe(referenceData.filter((item) => item.type
+    if (filterDoneRecipes === 'Drinks' && localDoneRecipes !== null) {
+      setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'drink'));
     }
   }, [filterDoneRecipes, setMapDoneRecipe]);
@@ -51,7 +54,7 @@ function DoneRecipes() {
           data-testid="filter-by-all-btn"
           type="button"
           value="All"
-          onClick={ () => setMapDoneRecipe(referenceData) }
+          onClick={ () => setMapDoneRecipe(DoneRecipeOriginal) }
         >
           All
         </button>
@@ -71,8 +74,8 @@ function DoneRecipes() {
         >
           Drinks
         </button>
-        {mapDoneRecipe.map((recipe, index) => (
-          <div key={ recipe.id }>
+        {DoneRecipeOriginal !== null && mapDoneRecipe.map((recipe, index) => (
+          <div key={ (recipe.id * index) / 2 }>
             <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
               <img

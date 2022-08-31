@@ -3,10 +3,11 @@ import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import DrinksInProgress from '../components/DrinksInProgress';
 import FoodsInProgress from '../components/FoodsInProgress';
+import '../css/RecipeInProgress.css';
 
 function RecipeInProgress() {
   const { idDrink, idFood } = useParams();
-  const { setRecipeInProgress } = useContext(RecipesContext);
+  const { setRecipeDetail } = useContext(RecipesContext);
   const { pathname } = useLocation();
   useEffect(() => {
     if (pathname.includes('foods')) {
@@ -15,19 +16,19 @@ function RecipeInProgress() {
         const responseFoodIdApi = await idFoodApi.json();
         return responseFoodIdApi.meals;
       };
-      callingFoodIdApi(idFood).then((response) => setRecipeInProgress(response));
+      callingFoodIdApi(idFood).then((response) => setRecipeDetail(response));
     } else {
       const callingDrinksIdApi = async (idParam) => {
         const idDrinkApi = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idParam}`);
         const responseDrinksApi = await idDrinkApi.json();
         return responseDrinksApi.drinks;
       };
-      callingDrinksIdApi(idDrink).then((response) => setRecipeInProgress(response));
+      callingDrinksIdApi(idDrink).then((response) => setRecipeDetail(response));
     }
-  }, [idDrink, idFood, setRecipeInProgress, pathname]);
+  }, [idDrink, idFood, setRecipeDetail, pathname]);
   return (
     <div>
-      <h1>RecipeInProgress</h1>
+      <h1 className="title-recipeInProgress">Recipe In Progress</h1>
       { pathname.includes('drinks') ? (
         <DrinksInProgress />
       ) : (

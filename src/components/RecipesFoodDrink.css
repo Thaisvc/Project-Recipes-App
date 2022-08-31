@@ -1,0 +1,82 @@
+.contener {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.button_food {
+  border: none;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  height: 30px;
+  margin: 10px 154px;
+  width: 120px;
+}
+
+.button_food:hover {
+  color: #ec4f37;
+}
+
+.card {
+  background-color: #ddd;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25)  54px 55px , rgba(0, 0, 0, 0.12)  -12px 30px , rgba(0, 0, 0, 0.12)  4px 6px , rgba(0, 0, 0, 0.17)  12px 13px , rgba(0, 0, 0, 0.09)  -3px 5px;
+  height: 188px;
+  margin: 10px;
+  padding-bottom: 25px;
+  text-align: center;
+  width: 155px;
+}
+
+.card p {
+  color: #ec4f37;
+  text-decoration: none;
+}
+
+
+.image_food {
+  border-radius: 10px;
+}
+
+@media screen and ( max-width : 767px ) {
+
+  .contener {
+    display: flex;
+    flex-flow: wrap row;
+  }
+
+  .button_categories {
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    margin: 5px;
+    width: 120px;
+  }
+
+  .button_categories:hover {
+    color: #ec4f37;
+  }
+
+  .card {
+    background-color: #ddd;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 1px 54px 55px , rgba(0, 0, 0, 0.12) 1px -12px 30px , rgba(0, 0, 0, 0.12) 1px 4px 6px , rgba(0, 0, 0, 0.17) 1px 12px 13px , rgba(0, 0, 0, 0.09) 1px -3px 5px;
+    height: 188px;
+    margin: 10px;
+    padding-bottom: 25px;
+    text-align: center;
+    width: 155px;
+  }
+
+  .card p {
+    color: #ec4f37;
+    text-decoration: none;
+
+  }
+
+  .image_card {
+    border-radius: 10px;
+  }
+
+}

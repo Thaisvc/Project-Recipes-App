@@ -4,10 +4,11 @@ import { screen, waitFor } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import RecipesProvider from '../context/RecipesProvider';
-
+import mockDone from './helpers/mockDone';
 
 describe('Componente Header', () => {
     it('testando se a pagina Foods tem o nome correto', async () => {
+      localStorage.setItem('doneRecipes', JSON.stringify(mockDone))
         const {history} = renderWithRouter(<RecipesProvider>
             <App />
           </RecipesProvider>);
@@ -16,8 +17,6 @@ describe('Componente Header', () => {
         });
         const btnShare = screen.getAllByTestId('btn-share-img');
         expect(btnShare).toHaveLength(2);
-        // userEvent.keyboard('[Ctrl+c>]', '/') // Press Shift (without releasing it)
-        // history.push('/done-recipes');
         await waitFor(() => {
           userEvent.click(btnShare[0]);
         });

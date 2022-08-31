@@ -1,0 +1,24 @@
+.footer {
+  position: fixed;
+  width: 360px;
+  height: 58px;
+  left: 0px;
+  top: 582px;
+  background: #EC4F37;
+}
+
+.food-footer {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  left: 302px;
+  top: 593px;
+}
+
+.drink-footer {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  left: 16px;
+  top: 591px;
+}
