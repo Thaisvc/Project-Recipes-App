@@ -63,12 +63,25 @@
 
 .ingredients-card {
   background-color: #e5e5e5;
-  /* padding: 10px; */
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
 }
 
 h2 {
-  font-size: 25px;
-  font-weight: 35;
-  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 30;
+  margin-left: 10px;
   text-align: start;
+}
+
+.instructions-class {
+  padding: 10px;
+  text-align: justify;
+}
+
+iframe {
+  align-content: center;
+  display: flex;
+  width: 60%;
 }

@@ -195,7 +195,15 @@ function RecipeDetails() {
                       { recipe[`strMeasure${index + 1}`] }
                     </p>)) }
               </div>
-              <p data-testid="instructions">{ recipe.strInstructions }</p>
+              <h2>Instructions:</h2>
+              <div className="ingredients-card">
+                <p
+                  data-testid="instructions"
+                  className="instructions-class"
+                >
+                  { recipe.strInstructions }
+                </p>
+              </div>
               <iframe
                 src={ `https://www.youtube.com/embed/${handleEmbed()}` }
                 frameBorder="0"
