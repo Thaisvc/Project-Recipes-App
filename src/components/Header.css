@@ -1,0 +1,10 @@
+.contener_header {
+    display: flex;
+    justify-content: space-around;
+   background-color: #ec4f37;
+   align-items: center;
+}
+
+.img_header{
+    background-color: #ec4f37;
+}

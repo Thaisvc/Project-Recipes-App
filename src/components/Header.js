@@ -8,7 +8,7 @@ import SearchBar from './SearchBar';
 function Header() {
   const { titlePage, setDisabledSearch, disabledSearch } = useContext(RecipesContext);
   return (
-    <div>
+    <div className="contener_header">
       <h1 data-testid="page-title">{titlePage}</h1>
       <Link to="/profile">
         <img
@@ -28,6 +28,7 @@ function Header() {
               onClick={ () => setDisabledSearch(!disabledSearch) }
             >
               <img
+                className="img_header"
                 data-testid="search-top-btn"
                 aria-label="Search Icon"
                 src={ SearchImg }
