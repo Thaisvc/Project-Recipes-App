@@ -5,11 +5,11 @@ import ProfileImg from '../images/profileIcon.svg';
 import SearchImg from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import './Header.css';
+
 function Header() {
   const { titlePage, setDisabledSearch, disabledSearch } = useContext(RecipesContext);
   return (
     <div className="contener_header">
-      <h1 data-testid="page-title">{titlePage}</h1>
       <Link to="/profile">
         <img
           src={ ProfileImg }
@@ -17,13 +17,14 @@ function Header() {
           data-testid="profile-top-btn"
         />
       </Link>
+      <h1 data-testid="page-title">{titlePage}</h1>
       {(titlePage !== 'Profile'
       && titlePage !== 'Done Recipes'
       && titlePage !== 'Favorite Recipes')
         ? (
           <div>
             <button
-              style={ { border: 'none', backgroundColor: 'white', cursor: 'pointer' } }
+              style={ { border: 'none', backgroundColor: '#ec4f37', cursor: 'pointer' } }
               type="button"
               onClick={ () => setDisabledSearch(!disabledSearch) }
             >
