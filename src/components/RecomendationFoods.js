@@ -5,6 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 function RecomendationFoods() {
   const { pathname } = useLocation();
   const { drinksApi } = useContext(RecipesContext);
+  const SIX = 6;
 
   return (
     <div className="testimonials">

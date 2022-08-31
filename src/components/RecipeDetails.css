@@ -1,5 +1,5 @@
 .testimonials {
-  max-width: 300px;
+  max-width: 440px;
 }
 
 .scroller {
@@ -99,4 +99,13 @@ iframe {
   background-color: #ec4f37;
   color: white;
   width: 80px;
+}
+
+.start_recipe {
+  background-color: #ec4f37;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px black;
+  color: white;
+  height: 30px;
+  width: 100px;
 }
