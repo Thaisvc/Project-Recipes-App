@@ -1,5 +1,5 @@
 .testimonials {
-  max-width: 300px;
+  max-width: 440px;
 }
 
 .scroller {
@@ -13,4 +13,99 @@
   min-height: 200px;
   min-width: 70%;
   scroll-snap-align: center;
+}
+
+.recipedetails-fatherdiv {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipedetails-fatherdiv h1 {
+  background-color: #ec4f37;
+  color: white;
+  padding: 18px;
+}
+
+.content-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-page img {
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.h1-div-header {
+  text-align: center;
+  width: 100%;
+}
+
+.first-p-class {
+  font-size: 30px;
+  text-align: center;
+}
+
+.recipe-category-class {
+  color: #e5e5e5;
+  font-size: 25px;
+  text-align: center;
+}
+
+.ingredients-card {
+  background-color: #e5e5e5;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 30;
+  margin-left: 10px;
+  text-align: start;
+}
+
+.instructions-class {
+  padding: 10px;
+  text-align: justify;
+}
+
+iframe {
+  border-radius: 5px;
+  height: 350px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 80%;
+}
+
+.icons-class {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.icons-class button {
+  background-color: #ec4f37;
+  color: white;
+  width: 80px;
+}
+
+.start_recipe {
+  background-color: #ec4f37;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px black;
+  color: white;
+  height: 30px;
+  width: 100px;
 }

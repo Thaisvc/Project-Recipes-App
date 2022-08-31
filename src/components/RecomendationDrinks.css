@@ -1,0 +1,16 @@
+.item img {
+  border-radius: 50%;
+}
+
+.item {
+  /* align-items: center; */
+  padding: 25px;
+  background-color: #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.scroller {
+  border-radius: 10px;
+}
