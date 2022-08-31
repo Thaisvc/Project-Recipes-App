@@ -4,7 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import ProfileImg from '../images/profileIcon.svg';
 import SearchImg from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-
+import './Header.css';
 function Header() {
   const { titlePage, setDisabledSearch, disabledSearch } = useContext(RecipesContext);
   return (
