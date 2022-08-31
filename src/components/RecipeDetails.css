@@ -81,7 +81,22 @@ h2 {
 }
 
 iframe {
-  align-content: center;
+  border-radius: 5px;
+  height: 350px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 80%;
+}
+
+.icons-class {
   display: flex;
-  width: 60%;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.icons-class button {
+  background-color: #ec4f37;
+  color: white;
+  width: 80px;
 }

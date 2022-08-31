@@ -212,7 +212,7 @@ function RecipeDetails() {
                 title="video"
                 data-testid="video"
               />
-              <div>
+              <div className="icons-class">
                 <button type="button" onClick={ () => handleShare(window.location.href) }>
                   <img src={ shareIcon } alt="share button" data-testid="share-btn" />
                 </button>
