@@ -14,3 +14,37 @@
   min-width: 70%;
   scroll-snap-align: center;
 }
+
+.recipedetails-fatherdiv {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipedetails-fatherdiv h1 {
+  background-color: orange;
+  color: white;
+  /* color: #ec4f37; */
+  padding: 18px;
+  width: 100%;
+}
+
+.content-div {
+  /* align-items: center; */
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-page img {
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}

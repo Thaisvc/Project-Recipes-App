@@ -22,7 +22,6 @@ function RecipeDetails() {
   const SIX = 6;
 
   const handleProgress = () => {
-    // Requisito 30 - Função que verifica se existe itens na chave inProgressRecipes no localStorage. Se não tiver, insere o primeiro item, respeitando se é um 'drink' ou 'food'. Se tiver, apenas acrescenta mais um item em 'cocktails' ou 'meals' se for drink ou food respectivamente.
     const keyInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (keyInProgressRecipes === null) {
       if (idDrink) {
@@ -84,7 +83,6 @@ function RecipeDetails() {
         return responseFoodIdApi.meals;
       };
       callingFoodIdApi(idFood).then((response) => setRecipeDetail(response));
-      // Requisito 30 - Verifica se a chave 'inProgressRecipes' no localStorage contém itens. Se tiver, pegamos a 'keys' do objeto 'meals' e no 'cocktails' pois eles são ID's de receitas em progresso. Se a ID for igual da receita da tela "RecipeDetails", o botão renderiza "Continue Recipe", demonstrando que a receita já havia sido iniciada. Se não tiver sido iniciada, ela não está no localStorage e o botão renderiza "Start Recipe".
       const keyInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (keyInProgressRecipes !== null) {
         setInProgressItems(Object.keys(keyInProgressRecipes.meals)
@@ -117,10 +115,15 @@ function RecipeDetails() {
   };
 
   return (
-    <div>
-      <h1>RecipeDetails</h1>
+    <div className="recipedetails-fatherdiv">
+      <div className="h1-div-header">
+        <h1>RecipeDetails</h1>
+      </div>
       { pathname.includes('drinks') ? (recipeDetail.map((recipe) => (
-        <div key={ recipe.idDrink }>
+        <div
+          key={ recipe.idDrink }
+          className="content-div"
+        >
           <img
             alt={ `${recipe.strDrink}-recipe` }
             src={ recipe.strDrinkThumb }
@@ -137,27 +140,27 @@ function RecipeDetails() {
               { recipe[`strMeasure${index + 1}`] }
             </p>)) }
           <p data-testid="instructions">{ recipe.strInstructions }</p>
-          {/* Requisito 32 - Implementando 2 botões de "Compartilhar" e "Favoritar" */}
           <div>
             <button type="button" onClick={ () => handleShare(window.location.href) }>
               <img src={ shareIcon } alt="share button" data-testid="share-btn" />
             </button>
             <button type="button" onClick={ () => handleFavorite(type, idFood, idDrink) }>
               <img
-                // Requisito 35 - Que verifica se a receita está favoritada ou não. Caso favoritada o ícone é preto, caso contrário, é branco.
                 src={ favorited ? blackHeartIcon : whiteHeartIcon }
                 alt="favorite button"
                 data-testid="favorite-btn"
               />
             </button>
           </div>
-          {/* Requisito 33 - Caso a pessoa tenha clicado no botão "Share" renderiza a mensagem abaixo */}
           {linkCopied && <span>Link copied!</span>}
         </div>
       ))) : (
-        <div>
+        <div className="content-div">
           {recipeDetail.map((recipe) => (
-            <div key={ recipe.idMeal }>
+            <div
+              key={ recipe.idMeal }
+              className="content-page"
+            >
               <img
                 alt={ `${recipe.strMeal}-recipe` }
                 src={ recipe.strMealThumb }
@@ -183,7 +186,6 @@ function RecipeDetails() {
                 title="video"
                 data-testid="video"
               />
-              {/* Requisito 32 - Implementando 2 botões de "Compartilhar" e "Favoritar" */}
               <div>
                 <button type="button" onClick={ () => handleShare(window.location.href) }>
                   <img src={ shareIcon } alt="share button" data-testid="share-btn" />
@@ -193,14 +195,12 @@ function RecipeDetails() {
                   onClick={ () => handleFavorite(type, idFood, idDrink) }
                 >
                   <img
-                    // Requisito 35 - Que verifica se a receita está favoritada ou não. Caso favoritada o ícone é preto, caso contrário, é branco.
                     src={ favorited ? blackHeartIcon : whiteHeartIcon }
                     alt="favorite button"
                     data-testid="favorite-btn"
                   />
                 </button>
               </div>
-              {/* Requisito 33 - Caso a pessoa tenha clicado no botão "Share" renderiza a mensagem abaixo */}
               {linkCopied && <span>Link copied!</span>}
             </div>
           ))}
