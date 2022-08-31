@@ -1,0 +1,104 @@
+.title-recipeInProgress {
+  background-color: #ec4f37;
+  color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  padding: 10px;
+  text-align: center;
+}
+
+.page-recipeInProgress {
+  background-color: rgba(153, 153, 153, 0.781);
+}
+
+.page-recipeInProgress h3 {
+  color: #ec4f37;
+  font-size: 45px;
+  padding-left: 10px;
+}
+
+.page-recipeInProgress .p-progress-category {
+  font-size: 20px;
+  padding: 5px;
+  padding-left: 15px;
+}
+
+.page-recipeInProgress .p-progress-instructions {
+  font-size: 20px;
+  margin: 5px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.page-recipeInProgress input {
+  height: 15px;
+  margin-bottom: 10px;
+  margin-right: 2.5px;
+  margin-top: 10px;
+}
+
+.page-recipeInProgress img {
+  margin: 5px;
+}
+
+.page-recipeInProgress p {
+  padding: 5px;
+}
+
+.div-btns {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+}
+
+.page-recipeInProgress .favorite-btn {
+  background-color: #fc000088;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 50px;
+  width: 100px;
+}
+
+.page-recipeInProgress .favorite-btn:hover {
+  background-color: rgba(61, 61, 61, 0.473);
+  box-shadow: -3px 3px #fc000088;
+}
+
+.page-recipeInProgress .share-btn {
+  background-color: #0019fc88;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 50px;
+  width: 100px;
+}
+
+.page-recipeInProgress .share-btn:hover {
+  background-color: rgba(61, 61, 61, 0.473);
+  box-shadow: -3px 3px #0019fc88;
+}
+
+
+.page-recipeInProgress .finish-btn {
+  font-size: larger;
+  font-weight: 800;
+  height: 50px;
+  width: 100px;
+}
+
+.page-recipeInProgress .finish-btn:disabled {
+  background-color: #ec4f37;
+}
+
+.page-recipeInProgress .finish-btn:enabled {
+  background-color: #5604a188;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.page-recipeInProgress .finish-btn:enabled:hover {
+  background-color: rgba(61, 61, 61, 0.473);
+  box-shadow: -3px 3px #5604a188;
+}

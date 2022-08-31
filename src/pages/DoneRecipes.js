@@ -11,6 +11,7 @@ function DoneRecipes() {
 
   const [isMessageOn, setIsMessageOn] = useState(false);
   const [share, setShare] = useState({});
+  const [DoneRecipeOriginal, setDoneRecipeOriginal] = useState([]);
   useEffect(() => {
     setTitlePage('Done Recipes');
   }, [setTitlePage]);
@@ -28,20 +29,22 @@ function DoneRecipes() {
   }, [share]);
 
   // Requisito 48 - Filter Done Recipes
-  const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   useEffect(() => {
+    const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     setMapDoneRecipe(localDoneRecipes);
-  }, [setMapDoneRecipe, localDoneRecipes]);
+    setDoneRecipeOriginal(localDoneRecipes);
+  }, [setMapDoneRecipe]);
   useEffect(() => {
-    if (filterDoneRecipes === 'Food') {
+    const localDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (filterDoneRecipes === 'Food' && localDoneRecipes !== null) {
       setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'food'));
     }
-    if (filterDoneRecipes === 'Drinks') {
+    if (filterDoneRecipes === 'Drinks' && localDoneRecipes !== null) {
       setMapDoneRecipe(localDoneRecipes.filter((item) => item.type
       === 'drink'));
     }
-  }, [filterDoneRecipes, localDoneRecipes, setMapDoneRecipe]);
+  }, [filterDoneRecipes, setMapDoneRecipe]);
 
   return (
     <div>
@@ -51,7 +54,7 @@ function DoneRecipes() {
           data-testid="filter-by-all-btn"
           type="button"
           value="All"
-          onClick={ () => setMapDoneRecipe(localDoneRecipes) }
+          onClick={ () => setMapDoneRecipe(DoneRecipeOriginal) }
         >
           All
         </button>
@@ -71,7 +74,7 @@ function DoneRecipes() {
         >
           Drinks
         </button>
-        {mapDoneRecipe !== null && mapDoneRecipe.map((recipe, index) => (
+        {DoneRecipeOriginal !== null && mapDoneRecipe.map((recipe, index) => (
           <div key={ (recipe.id * index) / 2 }>
             <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>

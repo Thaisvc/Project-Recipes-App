@@ -12,8 +12,8 @@ describe('Tela de Login', () => {
       <App />
     </RecipesProvider>
     );
-  const emailInput = screen.getByPlaceholderText('email');
-  const passwordInput = screen.getByPlaceholderText('password');
+  const emailInput = screen.getByPlaceholderText(/email/i);
+  const passwordInput = screen.getByPlaceholderText(/password/i);
   const buttonEnter = screen.getByRole('button', { name: /enter/i });
   expect(emailInput).toBeInTheDocument();
   expect(passwordInput).toBeInTheDocument();
@@ -26,8 +26,8 @@ describe('Tela de Login', () => {
       <App />
     </RecipesProvider>
     );
-  const emailInput = screen.getByPlaceholderText('email');
-  const passwordInput = screen.getByPlaceholderText('password');
+  const emailInput = screen.getByPlaceholderText(/email/i);
+  const passwordInput = screen.getByPlaceholderText(/password/i);
   const buttonEnter = screen.getByRole('button', { name: /enter/i });
   userEvent.type(emailInput, 'alguem@email.com');
   userEvent.type(passwordInput, '1234567');
