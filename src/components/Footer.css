@@ -1,26 +1,26 @@
 .footer {
-  position: fixed;
-  width: 360px;
+  background-color: #ec4f37;
   height: 58px;
-  left: 0px;
+  left: 0;
+  position: fixed;
   top: 582px;
-  background: #EC4F37;
+  width: 360px;
 }
 
 .food-footer {
-  position: fixed;
-  width: 40px;
   height: 40px;
   left: 302px;
+  position: fixed;
   top: 593px;
+  width: 40px;
 }
 
 .drink-footer {
-  position: fixed;
-  width: 40px;
   height: 40px;
   left: 16px;
+  position: fixed;
   top: 591px;
+  width: 40px;
 }
 
 

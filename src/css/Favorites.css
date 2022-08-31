@@ -1,0 +1,80 @@
+.page-favorites {
+  background-color: rgba(182, 182, 182, 0.322);
+  min-height: 100vh;
+}
+
+.btns-favorites {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.btns-favorites button {
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: 800;
+  height: 50px;
+  width: 150px;
+}
+
+.btns-favorites button:hover {
+  background-color: #ec4f37;
+  box-shadow: -3px 3px rgb(94, 94, 94);
+  color: aliceblue;
+}
+
+.main-favorites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+  padding-bottom: 15px;
+}
+
+.recipe-favorites {
+  background-color: rgb(182, 183, 184);
+  border-radius: 5px;
+  box-shadow: -3px 3px rgb(94, 94, 94);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px;
+  width: 45%;
+}
+
+.recipe-favorites .favorite-btn {
+  background-color: #fc000088;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 50px;
+  width: 100px;
+}
+
+.recipe-favorites .favorite-btn:hover {
+  background-color: rgba(61, 61, 61, 0.473);
+  box-shadow: -3px 3px #fc000088;
+}
+
+.recipe-favorites .share-btn {
+  background-color: #0019fc88;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 50px;
+  width: 100px;
+}
+
+.recipe-favorites .share-btn:hover {
+  background-color: rgba(61, 61, 61, 0.473);
+  box-shadow: -3px 3px #0019fc88;
+}
+
+.btn-share-fav {
+  display: flex;
+  justify-content: space-around;
+}

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import ShareIcon from '../images/shareIcon.svg';
+import '../css/DoneRecipes.css';
 
 function DoneRecipes() {
   const { setTitlePage, filterDoneRecipes,
@@ -47,72 +48,79 @@ function DoneRecipes() {
   }, [filterDoneRecipes, setMapDoneRecipe]);
 
   return (
-    <div>
+    <div className="page-done-recipes">
       <Header />
       <div>
-        <button
-          data-testid="filter-by-all-btn"
-          type="button"
-          value="All"
-          onClick={ () => setMapDoneRecipe(DoneRecipeOriginal) }
-        >
-          All
-        </button>
-        <button
-          data-testid="filter-by-food-btn"
-          type="button"
-          value="Food"
-          onClick={ ({ target: { value } }) => setFilterDoneRecipes(value) }
-        >
-          Food
-        </button>
-        <button
-          data-testid="filter-by-drink-btn"
-          type="button"
-          value="Drinks"
-          onClick={ ({ target: { value } }) => setFilterDoneRecipes(value) }
-        >
-          Drinks
-        </button>
-        {DoneRecipeOriginal !== null && mapDoneRecipe.map((recipe, index) => (
-          <div key={ (recipe.id * index) / 2 }>
-            <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
-              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                width="150px"
-                data-testid={ `${index}-horizontal-image` }
-              />
-            </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {recipe.type === 'drink' ? recipe.alcoholicOrNot : recipe.nationality}
-              {' - '}
-              {recipe.category}
-            </p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            <button
-              type="button"
-              data-testid="btn-share-img"
-              onClick={ () => {
-                setShare({ id: recipe.id, type: recipe.type });
-                setIsMessageOn(!isMessageOn);
-              } }
-            >
-              <img
-                src={ ShareIcon }
-                alt="Share Icon"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
-            <span>{ isMessageOn && 'Link copied!' }</span>
-            {recipe.tags.map((item, indexs) => (
-              <p key={ indexs } data-testid={ `${index}-${item}-horizontal-tag` }>
-                {item}
+        <div className="btns-done-filter">
+          <button
+            data-testid="filter-by-all-btn"
+            type="button"
+            value="All"
+            onClick={ () => setMapDoneRecipe(DoneRecipeOriginal) }
+          >
+            All
+          </button>
+          <button
+            data-testid="filter-by-food-btn"
+            type="button"
+            value="Food"
+            onClick={ ({ target: { value } }) => setFilterDoneRecipes(value) }
+          >
+            Food
+          </button>
+          <button
+            data-testid="filter-by-drink-btn"
+            type="button"
+            value="Drinks"
+            onClick={ ({ target: { value } }) => setFilterDoneRecipes(value) }
+          >
+            Drinks
+          </button>
+        </div>
+        <section className="main-done-recipe">
+          {DoneRecipeOriginal !== null && mapDoneRecipe.map((recipe, index) => (
+            <div key={ (recipe.id * index) / 2 } className="recipe-done">
+              <Link to={ `/${recipe.type === 'food' ? 'foods' : 'drinks'}/${recipe.id}` }>
+                <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+                <img
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  width="150px"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </Link>
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                {recipe.type === 'drink' ? recipe.alcoholicOrNot : recipe.nationality}
+                {' - '}
+                {recipe.category}
               </p>
-            ))}
-          </div>
-        ))}
+              <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+              <button
+                className="share-btn"
+                type="button"
+                data-testid="btn-share-img"
+                onClick={ () => {
+                  setShare({ id: recipe.id, type: recipe.type });
+                  setIsMessageOn(!isMessageOn);
+                } }
+              >
+                <img
+                  src={ ShareIcon }
+                  alt="Share Icon"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+              <span>{ isMessageOn && 'Link copied!' }</span>
+              <ul>
+                {recipe.tags.map((item, indexs) => (
+                  <li key={ indexs } data-testid={ `${index}-${item}-horizontal-tag` }>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
       </div>
     </div>
   );
